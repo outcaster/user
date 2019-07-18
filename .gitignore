@@ -15,3 +15,7 @@
 ###< IDEs ###
 /.idea
 ###> IDEs ###
+
+###< CI and QA ###
+/data/
+###> CI and QA ###

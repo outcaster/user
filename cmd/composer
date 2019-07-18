@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# Author: Nicolas Giraud <nicolas.giraud.dev@gmail.com>
+# Copyright (c) 2017
+# License: MIT
+
+set -o errexit  # Make your script exit when a command fails.
+set -o pipefail # Catch 'xxx' fails for command 'xxx|yyy'.
+set -o nounset  # Exit script when using unset variable.
+#set -o xtrace   # Debug mode. Uncomment to activate.
+
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+
+# Set the URL registry where the docker image to based on is stored.
+REGISTRY="composer"
+# REGISTRY="hub.aareonit.fr:5000/preprod/composer:php72"
+
+# Set dynamic options for the command:
+# - Enable the --tty option if there is a tty.
+option_tty=$(if [ "not a tty" = "$(tty)" ]; then echo ""; else echo " --tty "; fi)
+
+# Run the docker command:
+# - Clean up the container when the command run inside has exited.
+# - Enable the tty if possible for better display.
+# - Mount the folder where "composer.json" file is.
+# - Mount the passwords to let composer use the given SSH-key
+# - Mount the SSH-key so composer can access to private repositories.
+# - Command in docker will be like "composer <arg1> <arg2> ...".
+#    --volume ${__root}/www:/var/www \ instead of     `--volume ${__root}:/app \`
+docker run --rm ${option_tty} \
+    --volume ${__root}:/app \
+    --volume /etc/passwd:/etc/passwd:ro \
+    --volume ${HOME}/.ssh:/root/.ssh \
+    --volume /tmp/.composer-cache:/tmp/.composer \
+    --env HTTP_PROXY=${HTTP_PROXY:-} \
+    --env HTTPS_PROXY=${HTTPS_PROXY:-} \
+    ${REGISTRY} ${@}
+

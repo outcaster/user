@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Author: Nicolas Giraud <nicolas.giraud.dev@gmail.com>
+# Copyright (c) 2017
+# License: MIT
+
+set -o errexit  # Make your script exit when a command fails.
+set -o pipefail # Catch 'xxx' fails for command 'xxx|yyy'.
+set -o nounset  # Exit script when using unset variable.
+#set -o xtrace   # Debug mode. Uncomment to activate.
+
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+acceptance_value=${1:-0}
+
+(${__dir}/phpunit || true) &
+wait
+
+(${__dir}/phpstan || true) &
+(${__dir}/pdepend || true) &
+(${__dir}/phpcs || true) &
+(${__dir}/phpcpd || true) &
+(${__dir}/phpmetrics || true) &
+wait
+
+# Draw the dashboard finally
+${__dir}/dashboard ${acceptance_value}
+
+echo "# QA reports are done."
