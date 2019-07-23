@@ -9,7 +9,7 @@ Feature:
   Scenario: It gets a phone number for an existing user
     When I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/users/v1/phone" with body:
+    And I send a "POST" request to "/user/v1/getphonenumber" with body:
     """
     {
       "name": "Sample tenant"
