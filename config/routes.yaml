@@ -5,3 +5,7 @@
 #test:
 #    path: /test
 #    controller: App\Controller\TestController::index
+
+get_phone_number:
+    path: /getphonenumber
+    controller: App\Controller\GetPhoneNumberController::index
