@@ -8,4 +8,4 @@
 
 get_phone_number:
     path: /getphonenumber
-    controller: App\Controller\GetPhoneNumberController::index
+    controller: App\UserContext\Presentation\Query\GetPhoneNumberController::index
