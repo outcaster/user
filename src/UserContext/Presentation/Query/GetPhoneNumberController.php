@@ -12,6 +12,11 @@ class GetPhoneNumberController extends AbstractController
      */
     public function index()
     {
+        // get request information with the query adapter
+
+        // call to the query handler
+
+        // return the query response
 
         die("im alive");
 
