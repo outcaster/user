@@ -19,3 +19,7 @@
 ###< CI and QA ###
 /data/
 ###> CI and QA ###
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###

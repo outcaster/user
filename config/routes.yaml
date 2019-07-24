@@ -7,5 +7,5 @@
 #    controller: App\Controller\TestController::index
 
 get_phone_number:
-    path: /user/v1/getphonenumber
-    controller: App\UserContext\Presentation\Query\GetPhoneNumberController::index
+    path: /user/v1/getphonenumber/{name}
+    controller: App\UserContext\Presentation\GetPhoneNumber\Query\GetPhoneNumberController::index
