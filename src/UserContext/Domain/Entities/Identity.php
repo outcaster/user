@@ -5,5 +5,5 @@ namespace App\UserContext\Domain\Entities;
 
 class Identity
 {
-
+    public $id;
 }

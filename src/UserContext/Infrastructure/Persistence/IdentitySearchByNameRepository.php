@@ -3,7 +3,15 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Persistence;
 
+use App\UserContext\Domain\Entities\ResponseWrapper;
 use App\UserContext\Infrastructure\Connections\ApiClient;
+use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class IdentitySearchByNameRepository
 {
@@ -14,29 +22,41 @@ class IdentitySearchByNameRepository
         ApiClient $client
         //$deserializer
     ) {
-        $this->client       = $client;
-        /*$this->deserializer = $deserializer;*/
+        $this->client       = new Client();
+        $this->deserializer = new Serializer(
+            //[new ObjectNormalizer(), new GetSetMethodNormalizer(), new ArrayDenormalizer()],
+            [new ObjectNormalizer(),],
+            [new JsonEncoder()]
+        );
     }
 
     public function search(string $name)
     {
-        die('im in the client');
         $body = [
             'criteria' => [
                 'and' => [
-                    'field' => 'name',
-                    'operator' => '=',
-                    'value' => $name,
+                    [
+                        'field' => 'name',
+                        'operator' => '=',
+                        'value' => $name,
+                    ]
                 ]
             ]
         ];
 
         $apiResponse = $this
             ->client
-            ->request($body);
+            ->post(
+                'http://localhost/dpm/public/index.php/v1/identity/searchby',
+                [
+                    RequestOptions::JSON => $body,
+                ]
+            );
 
-        die(var_dump($apiResponse));
-
-        //return $this->deserializer->deserialize($apiResponse, Identity::class, 'json');
+        return $this->deserializer->deserialize(
+            $apiResponse->getBody()->getContents(),
+            ResponseWrapper::class,
+            'json'
+        );
     }
 }
