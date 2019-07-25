@@ -11,6 +11,8 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
+use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Serializer;
 
 class IdentitySearchByNameRepository
@@ -22,10 +24,13 @@ class IdentitySearchByNameRepository
         ApiClient $client
         //$deserializer
     ) {
+
+        $objectNormalizer = new ObjectNormalizer(null, null, null, new PhpDocExtractor());
+
         $this->client       = new Client();
         $this->deserializer = new Serializer(
-            //[new ObjectNormalizer(), new GetSetMethodNormalizer(), new ArrayDenormalizer()],
-            [new ObjectNormalizer(),],
+            [$objectNormalizer, new GetSetMethodNormalizer(), new ArrayDenormalizer()],
+            //[new $objectNormalizer,],
             [new JsonEncoder()]
         );
     }

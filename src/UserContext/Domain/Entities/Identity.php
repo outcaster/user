@@ -3,7 +3,29 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Entities;
 
+use phpDocumentor\Reflection\Types\Integer;
+
 class Identity
 {
-    public $id;
+    /**
+     * @Type("integer")
+     */
+    private $id;
+
+    /**
+     * @return integer
+     */
+    public function getId() :Integer
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param integer id
+     * @return void
+     */
+    public function setId($id) :void
+    {
+        $this->id = $id;
+    }
 }
