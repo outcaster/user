@@ -13,7 +13,7 @@ class Identity
     private $id;
 
     /**
-     * @return integer
+     * @return int
      */
     public function getId() :int
     {

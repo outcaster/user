@@ -19,6 +19,4 @@ class UserPhone
         $this->phoneNumbers = $phoneNumbers;
         // TODO: Domain exceptions
     }
-
-
 }
