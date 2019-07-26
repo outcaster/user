@@ -4,7 +4,13 @@
 namespace App\UserContext\Domain\Entities;
 
 
-class ResponseWrapper
+/**
+ * Class ResponseWrapper
+ * It contains a list of Identities in $results
+ *
+ * @package App\UserContext\Domain\Entities
+ */
+class IdentitySearchResponseWrapper
 {
     /**
      * @var  \App\UserContext\Domain\Entities\Identity[]

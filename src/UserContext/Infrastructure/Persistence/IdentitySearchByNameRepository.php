@@ -3,7 +3,8 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Persistence;
 
-use App\UserContext\Domain\Entities\ResponseWrapper;
+use App\UserContext\Domain\Entities\IdentitySearchResponseWrapper;
+use App\UserContext\Domain\Repository\IdentityRepository;
 use App\UserContext\Infrastructure\Connections\ApiClient;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
@@ -11,11 +12,10 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Serializer;
 
-class IdentitySearchByNameRepository
+class IdentitySearchByNameRepository implements IdentityRepository
 {
     private $client;
     private $deserializer;
@@ -35,7 +35,7 @@ class IdentitySearchByNameRepository
         );
     }
 
-    public function search(string $name)
+    public function search(string $name): IdentitySearchResponseWrapper
     {
         $body = [
             'criteria' => [
@@ -60,7 +60,7 @@ class IdentitySearchByNameRepository
 
         return $this->deserializer->deserialize(
             $apiResponse->getBody()->getContents(),
-            ResponseWrapper::class,
+            IdentitySearchResponseWrapper::class,
             'json'
         );
     }

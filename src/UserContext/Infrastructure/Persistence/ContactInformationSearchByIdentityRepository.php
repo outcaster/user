@@ -4,9 +4,10 @@ declare(strict_types = 1);
 namespace App\UserContext\Infrastructure\Persistence;
 
 use App\UserContext\Domain\Entities\Identity;
+use App\UserContext\Domain\Repository\ContactInformationRepository;
 use App\UserContext\Infrastructure\Connections\ApiClient;
 
-class ContactInformationSearchByIdentityRepository
+class ContactInformationSearchByIdentityRepository implements ContactInformationRepository
 {
     private $client;
     private $deserializer;
@@ -19,10 +20,11 @@ class ContactInformationSearchByIdentityRepository
         /*$this->deserializer = $deserializer;*/
     }
 
-    public function search(string $name)
+    public function search(int $id): array
     {
-        die('im in the client');
-        
+        // die('im in the client');
+
+        return [];
 
         //return $this->deserializer->deserialize($apiResponse, Identity::class, 'json');
     }

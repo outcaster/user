@@ -38,6 +38,6 @@ class GetPhoneNumberController extends AbstractController
         $result = $this->queryHandler->process($query);
 
         // 3. Format using the business work and return the Response.
-        return $this->responseHandler->success($result)->getResponse();
+        return $this->responseHandler->success($result);
     }
 }

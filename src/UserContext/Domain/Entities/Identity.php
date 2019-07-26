@@ -15,7 +15,7 @@ class Identity
     /**
      * @return integer
      */
-    public function getId() :Integer
+    public function getId() :int
     {
         return $this->id;
     }

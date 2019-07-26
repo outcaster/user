@@ -5,8 +5,8 @@ namespace App\UserContext\Domain\Services;
 
 use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneQuery;
 use App\UserContext\Domain\Entities\UserPhone;
-use App\UserContext\Infrastructure\Persistence\ContactInformationSearchByIdentityRepository;
-use App\UserContext\Infrastructure\Persistence\IdentitySearchByNameRepository;
+use App\UserContext\Domain\Repository\ContactInformationRepository;
+use App\UserContext\Domain\Repository\IdentityRepository;
 
 class GetPhoneNumberByNameManager
 {
@@ -14,8 +14,8 @@ class GetPhoneNumberByNameManager
     private $contactInformationSearchByIdentityRepository;
 
     public function __construct(
-        IdentitySearchByNameRepository $identitySearchByNameRepository,
-        ContactInformationSearchByIdentityRepository $contactInformationSearchByIdentityRepository
+        IdentityRepository $identitySearchByNameRepository,
+        ContactInformationRepository $contactInformationSearchByIdentityRepository
     ) {
         $this->identitySearchByNameRepository = $identitySearchByNameRepository;
         $this->contactInformationSearchByIdentityRepository = $contactInformationSearchByIdentityRepository;
@@ -26,14 +26,14 @@ class GetPhoneNumberByNameManager
         $result = [];
         //1. get the identities
         $identities = $this->identitySearchByNameRepository->search($query->getName());
-        die(var_dump($identities));
+        // die(var_dump($identities));
 
         //2.foreach identity get the user contact information
-        foreach ($identities as $identity) {
+        foreach ($identities->getResults() as $identity) {
             $contactInfoArray = $this->contactInformationSearchByIdentityRepository->search($identity->getId());
             //3. build the user telephone object
-            /*$userPhone = new UserPhone($identity, $contactInfoArray);
-            $result[] = $userPhone;*/
+            $userPhone = new UserPhone($identity, $contactInfoArray);
+            $result[] = $userPhone;
         }
 
         return $result;
