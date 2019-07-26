@@ -26,4 +26,16 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    user.infrastructure.connections.api.guzzle_client:
+        class: App\UserContext\Infrastructure\Connections\ApiGuzzleClient
+
+    user.infrastructure.serialization.symfony_serializer:
+        class: App\UserContext\Infrastructure\Serialization\SymfonySerializer
+
+    user.infrastructure.persistence.identity_search_by_name_repository:
+        class: App\UserContext\Infrastructure\Persistence\IdentitySearchByNameRepository
+        arguments:
+            - '@user.infrastructure.connections.api.guzzle_client'
+            - '@user.infrastructure.serialization.symfony_serializer'
+
 

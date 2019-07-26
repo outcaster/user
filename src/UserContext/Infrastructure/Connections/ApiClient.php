@@ -5,5 +5,5 @@ namespace App\UserContext\Infrastructure\Connections;
 
 interface ApiClient
 {
-    function request(array $body);
+    function post(string $url, array $body);
 }

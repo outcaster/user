@@ -4,18 +4,26 @@ declare(strict_types = 1);
 namespace App\UserContext\Infrastructure\Connections;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
 
 class GuzzleApiClient implements ApiClient
 {
     private $client;
 
-    public function __construct(string $url = null, string $method = null)
+    public function __construct()
     {
-        //$this->client = new Client($url, $method);
+        $this->client = new Client();
     }
 
-    function request(array $body)
+    function post(string $url, array $body)
     {
-        // TODO: Implement request() method.
+        return $apiResponse = $this
+            ->client
+            ->post(
+                $url,
+                [
+                    RequestOptions::JSON => $body,
+                ]
+            );
     }
 }

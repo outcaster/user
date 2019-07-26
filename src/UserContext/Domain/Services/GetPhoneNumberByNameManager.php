@@ -26,7 +26,7 @@ class GetPhoneNumberByNameManager
         $result = [];
         //1. get the identities
         $identities = $this->identitySearchByNameRepository->search($query->getName());
-        // die(var_dump($identities));
+        //die(var_dump($identities));
 
         //2.foreach identity get the user contact information
         foreach ($identities->getResults() as $identity) {
