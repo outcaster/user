@@ -53,7 +53,7 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         Assert::assertSame([$phoneOne, $phoneTwo], $response[0]->phoneNumbers);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         \Mockery::close();
     }

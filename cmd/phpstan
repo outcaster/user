@@ -13,7 +13,7 @@ __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __root="$(cd "$(dirname "${__dir}")" && pwd)"
 
 # If tool is not installed, just exit without executing it
-[[ -d ${__root}/www/vendor/phpstan ]] || exit 0
+[[ -d ${__root}/vendor/phpstan ]] || exit 0
 
 # Set the URL registry where the docker image to based on is stored.
 REGISTRY="phpstan/phpstan:0.11"
@@ -36,14 +36,14 @@ do
     docker run --detach ${option_tty} \
         --name phpstan_level_${LEVEL} \
         --user $(id -u):$(id -g) \
-        --volume ${__root}/www:/app \
+        --volume ${__root}:/app \
         --volume ${REPORTS_FOLDER}:${REPORTS_FOLDER} \
         ${REGISTRY} analyse \
             --error-format=json \
             --no-progress \
             --configuration=/app/phpstan.neon \
             --level=${LEVEL} \
-            src
+            src tests
 done
 
 # Wait that all commands are done.
