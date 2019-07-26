@@ -1,8 +1,7 @@
 <?php
-
+declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Entities;
-
 
 final class ContactInformationType
 {
@@ -29,7 +28,6 @@ final class ContactInformationType
             default:
                 throw new \RuntimeException('Unknown contact information id:' . $contactId);
                //TODO: throw new UnknownContactInformationException;
-
         }
     }
 
@@ -37,6 +35,4 @@ final class ContactInformationType
     {
         return $this->contactName;
     }
-
-
 }

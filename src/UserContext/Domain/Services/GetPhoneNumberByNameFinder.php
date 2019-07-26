@@ -8,7 +8,7 @@ use App\UserContext\Domain\Entities\UserPhone;
 use App\UserContext\Domain\Repository\ContactInformationRepository;
 use App\UserContext\Domain\Repository\IdentityRepository;
 
-class GetPhoneNumberByNameManager
+class GetPhoneNumberByNameFinder
 {
     private $identitySearchByNameRepository;
     private $contactInformationSearchByIdentityRepository;
