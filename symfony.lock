@@ -1,4 +1,7 @@
 {
+    "beberlei/assert": {
+        "version": "v2.9.9"
+    },
     "behat/behat": {
         "version": "v3.5.0"
     },
@@ -59,6 +62,9 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "firebase/php-jwt": {
+        "version": "v5.0.0"
+    },
     "friends-of-behat/symfony-extension": {
         "version": "2.0",
         "recipe": {
@@ -85,6 +91,9 @@
     },
     "hamcrest/hamcrest-php": {
         "version": "v2.0.0"
+    },
+    "imbo/behat-api-extension": {
+        "version": "v2.1.0"
     },
     "jean85/pretty-package-versions": {
         "version": "1.2"

@@ -50,6 +50,7 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         // Then
         Assert::assertTrue(sizeof($response) > 0);
         Assert::assertSame($identity, $response[0]->identity);
+        Assert::assertEquals($identity->getId(), $response[0]->identity->getId());
         Assert::assertSame([$phoneOne, $phoneTwo], $response[0]->phoneNumbers);
     }
 
