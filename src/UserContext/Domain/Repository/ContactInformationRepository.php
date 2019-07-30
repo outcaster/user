@@ -3,17 +3,17 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Repository;
 
-use App\UserContext\Domain\Entities\ContactInformation;
+use App\UserContext\Domain\Entities\PhoneNumber;
 
 interface ContactInformationRepository
 {
 
     /**
-     * Find a list of contact information by identity id
+     * Find a list of phone numbers by person id
      *
      * @param int $id
      *
-     * @return ContactInformation[]
+     * @return PhoneNumber[]
      */
     public function search(int $id): array;
 }

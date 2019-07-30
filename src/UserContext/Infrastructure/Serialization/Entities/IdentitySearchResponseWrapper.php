@@ -7,7 +7,7 @@ namespace App\UserContext\Infrastructure\Serialization\Entities;
  * Class ResponseWrapper
  * It contains a list of Identities in $results
  *
- * @package App\UserContext\Domain\Entities
+ * @package App\UserContext\Infrastructure\Serialization\Entities
  */
 class IdentitySearchResponseWrapper
 {

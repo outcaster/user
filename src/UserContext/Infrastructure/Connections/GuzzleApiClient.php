@@ -26,4 +26,9 @@ class GuzzleApiClient implements ApiClient
                 ]
             );
     }
+
+    function get(string $url)
+    {
+        return $apiResponse = $this->client->get($url);
+    }
 }

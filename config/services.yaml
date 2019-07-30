@@ -38,4 +38,10 @@ services:
             - '@user.infrastructure.connections.api.guzzle_client'
             - '@user.infrastructure.serialization.symfony_serializer'
 
+    user.infrastructure.persistence.contact_information_repository:
+        class: App\UserContext\Infrastructure\Persistence\ContactInformationSearchByIdentityRepository
+        arguments:
+            - '@user.infrastructure.connections.api.guzzle_client'
+            - '@user.infrastructure.serialization.symfony_serializer'
+
 

@@ -3,29 +3,48 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Persistence;
 
-use App\UserContext\Domain\Entities\Identity;
 use App\UserContext\Domain\Repository\ContactInformationRepository;
 use App\UserContext\Infrastructure\Connections\ApiClient;
+use App\UserContext\Infrastructure\Serialization\Serializer;
+use App\UserContext\Infrastructure\Serialization\Entities\ContactInformationSearchResponseWrapper;
+use App\UserContext\Infrastructure\Serialization\Adapter\ContactInformationToPhoneNumberAdapter;
 
 class ContactInformationSearchByIdentityRepository implements ContactInformationRepository
 {
     private $client;
-    private $deserializer;
+    private $serializer;
+    private $contactAdapter;
 
     public function __construct(
-        ApiClient $client
-        //$deserializer
+        ApiClient $client,
+        Serializer $serializer,
+        ContactInformationToPhoneNumberAdapter $contactAdapter
     ) {
-        $this->client       = $client;
-        /*$this->deserializer = $deserializer;*/
+        $this->client     = $client;
+        $this->serializer = $serializer;
+        $this->contactAdapter = $contactAdapter;
     }
 
-    public function search(int $id): array
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function search(int $id) :array
     {
-        // die('im in the client');
 
-        return [];
+        $apiResponse = $this
+            ->client
+            ->get('http://localhost/dpm/public/index.php/v1/contactinformation/' . $id);
 
-        //return $this->deserializer->deserialize($apiResponse, Identity::class, 'json');
+        $responseWrapper = $this->serializer->deserialize(
+            $apiResponse->getBody()->getContents(),
+            ContactInformationSearchResponseWrapper::class,
+            'json'
+        );
+        ini_set('xdebug.var_display_max_depth', '10');
+        ini_set('xdebug.var_display_max_children', '256');
+        ini_set('xdebug.var_display_max_data', '1024');
+        die(var_dump($responseWrapper));
+        return $this->contactAdapter->parse($responseWrapper);
     }
 }
