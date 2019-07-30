@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\UserContext\Domain\Entities;
+namespace App\UserContext\Infrastructure\Serialization\Entities;
 
 /**
  * Class ResponseWrapper
@@ -12,8 +12,8 @@ namespace App\UserContext\Domain\Entities;
 class IdentitySearchResponseWrapper
 {
     /**
-     * @var  \App\UserContext\Domain\Entities\Identity[]
-     * @Type("array<App\UserContext\Domain\Entities\Identity>")
+     * @var  \App\UserContext\Infrastructure\Serialization\Entities\Identity[]
+     * @Type("array<App\UserContext\Infrastructure\Serialization\Entities\Identity>")
      */
     private $results;
 
@@ -23,7 +23,7 @@ class IdentitySearchResponseWrapper
     }
 
     /**
-     * @param  \App\UserContext\Domain\Entities\Identity[] $results
+     * @param  \App\UserContext\Infrastructure\Serialization\Entities\Identity[] $results
      * @return void
      */
     public function setResults(array $results) :void

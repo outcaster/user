@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\UserContext\Domain\Entities;
+namespace App\UserContext\Infrastructure\Serialization\Entities;
 
 class ContactInformation
 {
