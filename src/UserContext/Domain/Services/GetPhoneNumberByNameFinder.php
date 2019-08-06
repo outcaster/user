@@ -6,8 +6,8 @@ namespace App\UserContext\Domain\Services;
 use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneQuery;
 use App\UserContext\Domain\Entities\ContactInformationAggregateRoot;
 use App\UserContext\Domain\Entities\Person;
-use App\UserContext\Domain\Repository\ContactInformationRepository;
-use App\UserContext\Domain\Repository\IdentityRepository;
+use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
+use App\UserContext\Domain\Repository\SearchPersonRepository;
 
 class GetPhoneNumberByNameFinder
 {
@@ -15,8 +15,8 @@ class GetPhoneNumberByNameFinder
     private $contactInformationSearchByIdentityRepository;
 
     public function __construct(
-        IdentityRepository $identitySearchByNameRepository,
-        ContactInformationRepository $contactInformationSearchByIdentityRepository
+        SearchPersonRepository $identitySearchByNameRepository,
+        SearchUserPhoneNumbersRepository $contactInformationSearchByIdentityRepository
     ) {
         $this->identitySearchByNameRepository = $identitySearchByNameRepository;
         $this->contactInformationSearchByIdentityRepository = $contactInformationSearchByIdentityRepository;

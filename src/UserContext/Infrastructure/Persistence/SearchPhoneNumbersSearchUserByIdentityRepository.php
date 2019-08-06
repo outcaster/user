@@ -3,13 +3,13 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Persistence;
 
-use App\UserContext\Domain\Repository\ContactInformationRepository;
+use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
 use App\UserContext\Infrastructure\Connections\ApiClient;
 use App\UserContext\Infrastructure\Serialization\Serializer;
 use App\UserContext\Infrastructure\Serialization\Entities\ContactInformationSearchResponseWrapper;
 use App\UserContext\Infrastructure\Serialization\Adapter\ContactInformationToPhoneNumberAdapter;
 
-class ContactInformationSearchByIdentityRepository implements ContactInformationRepository
+class SearchPhoneNumbersSearchUserByIdentityRepository implements SearchUserPhoneNumbersRepository
 {
     private $client;
     private $serializer;

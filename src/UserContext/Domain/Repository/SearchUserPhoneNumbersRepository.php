@@ -3,9 +3,9 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Repository;
 
-use App\UserContext\Domain\Entities\PhoneNumber;
+use App\UserContext\Domain\Entities\UserPhone;
 
-interface ContactInformationRepository
+interface SearchUserPhoneNumbersRepository
 {
 
     /**
@@ -13,7 +13,7 @@ interface ContactInformationRepository
      *
      * @param int $id
      *
-     * @return PhoneNumber[]
+     * @return UserPhone[]
      */
     public function search(int $id): array;
 }

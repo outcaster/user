@@ -26,13 +26,13 @@ final class UserPhoneType
         $this->contactId = $contactId;
         switch ($contactId) {
             case self::PERSONAL_NUMBER:
-                $this->contactName = 'PersonalNumber';
+                $this->contactName = self::PERSONAL_NUMBER_TEXT;
                 break;
             case self::WORK_NUMBER:
-                $this->contactName = 'WorkNumber';
+                $this->contactName = self::WORK_NUMBER_TEXT;
                 break;
             case self::MOBILE_NUMBER:
-                $this->contactName = 'MobileNumber';
+                $this->contactName = self::MOBILE_NUMBER_TEXT;
                 break;
             default:
                 throw new UnknownUserPhoneException('Unknown contact information id:' . $contactId);

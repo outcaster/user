@@ -8,8 +8,8 @@ use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneQuery;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\UserPhone;
 use App\UserContext\Domain\Entities\UserPhoneType;
-use App\UserContext\Domain\Repository\ContactInformationRepository;
-use App\UserContext\Domain\Repository\IdentityRepository;
+use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
+use App\UserContext\Domain\Repository\SearchPersonRepository;
 use App\UserContext\Domain\Services\GetPhoneNumberByNameFinder;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
@@ -40,11 +40,11 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         $phoneThree->shouldReceive('getPhoneNumber')
             ->andReturn('77777777');
         // repository mocking
-        $identityRepository = \Mockery::mock(IdentityRepository::class);
+        $identityRepository = \Mockery::mock(SearchPersonRepository::class);
         $identityRepository->shouldReceive('search')
             ->with('Connor')
             ->andReturn([$identity]);
-        $contactInformationRepository = \Mockery::mock(ContactInformationRepository::class);
+        $contactInformationRepository = \Mockery::mock(SearchUserPhoneNumbersRepository::class);
         $contactInformationRepository->shouldReceive('search')
             ->with(1)
             ->andReturn([$phoneOne, $phoneTwo, $phoneThree]);

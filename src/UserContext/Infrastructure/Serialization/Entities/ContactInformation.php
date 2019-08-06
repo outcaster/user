@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Serialization\Entities;
 
-use Symfony\Component\Serializer\Annotation\SerializedName;
 use phpDocumentor\Reflection\Types\Integer;
 
 class ContactInformation
@@ -14,7 +13,6 @@ class ContactInformation
     private $contactInformationId;
 
     /**
-     * @SerializedName("contact_information_identity")
      * @Type("App\UserContext\Infrastructure\Serialization\Entities\ContactInformationIdentity")
      * @var ContactInformationIdentity $contactInformationIdentity
      */

@@ -4,12 +4,12 @@ declare(strict_types = 1);
 namespace App\UserContext\Infrastructure\Persistence;
 
 use App\UserContext\Infrastructure\Serialization\Entities\IdentitySearchResponseWrapper;
-use App\UserContext\Domain\Repository\IdentityRepository;
+use App\UserContext\Domain\Repository\SearchPersonRepository;
 use App\UserContext\Infrastructure\Connections\ApiClient;
 use App\UserContext\Infrastructure\Serialization\Serializer;
 use App\UserContext\Infrastructure\Serialization\Adapter\IdentityToPersonAdapter;
 
-class IdentitySearchByNameRepository implements IdentityRepository
+class SearchPersonSearchByNameRepository implements SearchPersonRepository
 {
     private $client;
     private $serializer;
