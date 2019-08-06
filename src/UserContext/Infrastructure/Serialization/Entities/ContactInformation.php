@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Serialization\Entities;
 
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use phpDocumentor\Reflection\Types\Integer;
 
 class ContactInformation
@@ -13,10 +14,11 @@ class ContactInformation
     private $contactInformationId;
 
     /**
-     * @Type("App\UserContext\Infrastructure\Serialization\Entities\ContactDetail")
-     * @var ContactDetail
+     * @SerializedName("contact_information_identity")
+     * @Type("App\UserContext\Infrastructure\Serialization\Entities\ContactInformationIdentity")
+     * @var ContactInformationIdentity $contactInformationIdentity
      */
-    private $contactDetail;
+    private $contactInformationIdentity;
 
     /**
      * @return mixed
@@ -37,20 +39,18 @@ class ContactInformation
     }
 
     /**
-     * @return ContactDetail
+     * @return ContactInformationIdentity
      */
-    public function getContactDetail(): ContactDetail
+    public function getContactInformationIdentity(): ContactInformationIdentity
     {
-        return $this->contactDetail;
+        return $this->contactInformationIdentity;
     }
 
     /**
-     * @param ContactDetail $contactDetail
-     * @return ContactInformation
+     * @param ContactInformationIdentity $contactInformationIdentity
      */
-    public function setContactDetail(ContactDetail $contactDetail): ContactInformation
+    public function setContactInformationIdentity(ContactInformationIdentity $contactInformationIdentity): void
     {
-        $this->contactDetail = $contactDetail;
-        return $this;
+        $this->contactInformationIdentity = $contactInformationIdentity;
     }
 }

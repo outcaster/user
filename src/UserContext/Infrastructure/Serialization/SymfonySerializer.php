@@ -4,6 +4,8 @@ declare(strict_types = 1);
 namespace App\UserContext\Infrastructure\Serialization;
 
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -17,10 +19,19 @@ class SymfonySerializer implements SerializerInterface
 
     public function __construct()
     {
-        $objectNormalizer = new ObjectNormalizer(null, null, null, new PhpDocExtractor());
+        $objectNormalizer = new ObjectNormalizer(
+            null,
+            new CamelCaseToSnakeCaseNameConverter(),
+            null,
+            new PhpDocExtractor()
+        );
 
         $this->serializer = new Serializer(
-            [$objectNormalizer, new GetSetMethodNormalizer(), new ArrayDenormalizer()],
+            [
+                $objectNormalizer,
+                new GetSetMethodNormalizer(),
+                new ArrayDenormalizer(),
+            ],
             [new JsonEncoder()]
         );
     }

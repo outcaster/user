@@ -1,9 +1,9 @@
 <?php
-
+declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Entities;
 
-final class Person
+class Person
 {
     /**
      * @var int
@@ -27,5 +27,19 @@ final class Person
         $this->name = $name;
     }
 
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
 }

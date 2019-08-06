@@ -5,18 +5,38 @@ namespace App\UserContext\Domain\Entities;
 
 class UserPhone
 {
-    public $identity;
-    public $phoneNumbers;
+    public $type;
+    public $phoneNumber;
 
     /**
      * UserPhone constructor.
-     * @param $identity
-     * @param $phoneNumbers
+     * @param UserPhoneType $type
+     * @param string $phoneNumber
      */
-    public function __construct($identity, $phoneNumbers)
+    public function __construct(UserPhoneType $type, string $phoneNumber)
     {
-        $this->identity = $identity;
-        $this->phoneNumbers = $phoneNumbers;
-        // TODO: Domain exceptions
+        $this->type = $type;
+        $this->phoneNumber = $phoneNumber;
+    }
+
+    /**
+     * @return UserPhoneType
+     */
+    public function getType(): UserPhoneType
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhoneNumber(): string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function __toString()
+    {
+        return $this->type . ':' . $this->phoneNumber;
     }
 }

@@ -19,8 +19,7 @@ class IdentitySearchByNameRepository implements IdentityRepository
         ApiClient $client,
         Serializer $serializer,
         IdentityToPersonAdapter $identityAdapter
-    )
-    {
+    ) {
         $this->client     = $client;
         $this->serializer = $serializer;
         $this->identityAdapter = $identityAdapter;

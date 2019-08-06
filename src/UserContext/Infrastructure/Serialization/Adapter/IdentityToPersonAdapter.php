@@ -1,8 +1,7 @@
 <?php
-
+declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Serialization\Adapter;
-
 
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Infrastructure\Serialization\Entities\Identity;
@@ -19,9 +18,11 @@ class IdentityToPersonAdapter
         $result = [];
         /** @var Identity $identity */
         foreach ($identitySearchResponseWrapper->getResults() as $identity) {
-            $fullName = !empty($identity->getIdentity()->getFirstName()) ? $identity->getIdentity()->getFirstName() : '';
+            $fullName = !empty($identity->getIdentity()->getFirstName()) ?
+                $identity->getIdentity()->getFirstName() : '';
             if (!empty($identity->getIdentity()->getName())) {
-                $fullName .= !empty($fullName) ? ' ' . $identity->getIdentity()->getName() : $identity->getIdentity()->getName();
+                $fullName .= !empty($fullName) ? ' ' . $identity->getIdentity()->getName() :
+                    $identity->getIdentity()->getName();
             }
 
             $person = new Person($identity->getId(), $fullName);

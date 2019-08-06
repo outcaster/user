@@ -1,10 +1,9 @@
 <?php
-
+declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Serialization\Entities;
 
-
-class ContactDetail
+class ContactInformationIdentity
 {
     /**
      * @Type("string")
@@ -22,9 +21,9 @@ class ContactDetail
 
     /**
      * @param string $data
-     * @return ContactDetail
+     * @return ContactInformationIdentity
      */
-    public function setData(string $data): ContactDetail
+    public function setData(string $data): ContactInformationIdentity
     {
         $this->data = $data;
         return $this;

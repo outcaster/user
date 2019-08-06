@@ -4,8 +4,8 @@ declare(strict_types = 1);
 namespace App\UserContext\Domain\Services;
 
 use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneQuery;
+use App\UserContext\Domain\Entities\ContactInformationAggregateRoot;
 use App\UserContext\Domain\Entities\Person;
-use App\UserContext\Domain\Entities\UserPhone;
 use App\UserContext\Domain\Repository\ContactInformationRepository;
 use App\UserContext\Domain\Repository\IdentityRepository;
 
@@ -32,9 +32,9 @@ class GetPhoneNumberByNameFinder
         //2.foreach identity get the user contact information
         /** @var Person $person */
         foreach ($people as $person) {
-            $contactInfoArray = $this->contactInformationSearchByIdentityRepository->search($person->id);
+            $contactInfoArray = $this->contactInformationSearchByIdentityRepository->search($person->getId());
             //3. build the user telephone object
-            $userPhone = new UserPhone($person, $contactInfoArray);
+            $userPhone = new ContactInformationAggregateRoot($person, $contactInfoArray);
             $result[] = $userPhone;
         }
 
