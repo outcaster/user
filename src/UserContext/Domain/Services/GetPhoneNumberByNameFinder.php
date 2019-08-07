@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace App\UserContext\Domain\Services;
 
 use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneQuery;
+use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneQueryResponse;
 use App\UserContext\Domain\Entities\ContactInformationAggregateRoot;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
@@ -22,7 +23,7 @@ class GetPhoneNumberByNameFinder
         $this->contactInformationSearchByIdentityRepository = $contactInformationSearchByIdentityRepository;
     }
 
-    public function find(GetPhoneQuery $query) :array
+    public function find(GetPhoneQuery $query) :GetPhoneQueryResponse
     {
         $result = [];
         //1. get the identities
@@ -38,6 +39,6 @@ class GetPhoneNumberByNameFinder
             $result[] = $userPhone;
         }
 
-        return $result;
+        return new GetPhoneQueryResponse($result);
     }
 }

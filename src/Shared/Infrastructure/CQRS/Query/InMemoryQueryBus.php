@@ -1,13 +1,13 @@
 <?php
-
+declare(strict_types = 1);
 
 namespace App\Shared\Infrastructure\CQRS\Query;
-
 
 use App\Shared\Domain\CQRS\Query\Query;
 use App\Shared\Domain\CQRS\Query\QueryBus;
 use App\Shared\Domain\CQRS\Query\Response;
 use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneNumberHandler;
+use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneQuery;
 
 class InMemoryQueryBus implements QueryBus
 {
@@ -32,7 +32,10 @@ class InMemoryQueryBus implements QueryBus
     {
         $handler = $this->getPhoneQueryHandler;
 
-        return $handler($query);
+        if ($query instanceof GetPhoneQuery) {
+            return $handler($query);
+        } else {
+            return null;
+        }
     }
-
 }
