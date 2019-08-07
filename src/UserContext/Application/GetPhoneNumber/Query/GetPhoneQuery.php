@@ -3,7 +3,9 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Application\GetPhoneNumber\Query;
 
-final class GetPhoneQuery
+use App\Shared\Domain\CQRS\Query\Query;
+
+final class GetPhoneQuery implements Query
 {
     private $name;
 

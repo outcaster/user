@@ -3,9 +3,12 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Application\GetPhoneNumber\Query;
 
+use App\Shared\Domain\CQRS\Query\Query;
+use App\Shared\Domain\CQRS\Query\QueryHandler;
+use App\Shared\Domain\CQRS\Query\Response;
 use App\UserContext\Domain\Services\GetPhoneNumberByNameFinder;
 
-class GetPhoneNumberHandler
+class GetPhoneNumberHandler implements QueryHandler
 {
     private $getPhoneNumberByNameManager;
 
@@ -14,7 +17,7 @@ class GetPhoneNumberHandler
         $this->getPhoneNumberByNameManager = $getPhoneNumberByNameManager;
     }
 
-    public function process(GetPhoneQuery $query) :array
+    public function __invoke(Query $query) :?Response
     {
         return $this->getPhoneNumberByNameManager->find($query);
     }
