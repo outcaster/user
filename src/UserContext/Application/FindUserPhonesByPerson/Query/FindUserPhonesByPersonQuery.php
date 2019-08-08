@@ -8,6 +8,7 @@ use App\UserContext\Domain\Entities\Person;
 
 final class FindUserPhonesByPersonQuery implements Query
 {
+    /** @var Person */
     private $person;
 
     public function __construct(Person $person)

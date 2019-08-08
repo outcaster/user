@@ -4,6 +4,9 @@
 namespace App\Tests\UserContext\Domain\Services;
 
 
+use App\Shared\Infrastructure\CQRS\Query\InMemoryQueryBus;
+use App\UserContext\Application\FindPersonByName\Query\FindPersonByNameQueryHandler;
+use App\UserContext\Application\FindUserPhonesByPerson\Query\FindUserPhonesByPersonQueryHandler;
 use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneQuery;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\UserPhone;
@@ -48,10 +51,13 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         $contactInformationRepository->shouldReceive('search')
             ->with(1)
             ->andReturn([$phoneOne, $phoneTwo, $phoneThree]);
+
+        $findPeopleHandler = new FindPersonByNameQueryHandler($identityRepository);
+        $findPhoneHandler = new FindUserPhonesByPersonQueryHandler($contactInformationRepository);
+
         // initialize the finder
         $getPhoneNumberByNameFinder = new GetPhoneNumberByNameFinder(
-            $identityRepository,
-            $contactInformationRepository
+            new InMemoryQueryBus([$findPeopleHandler, $findPhoneHandler])
         );
 
         // When

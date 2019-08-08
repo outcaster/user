@@ -7,6 +7,7 @@ use App\Shared\Domain\CQRS\Query\Query;
 
 final class FindPersonByNameQuery implements Query
 {
+    /** @var string */
     private $name;
 
     public function __construct(string $name)

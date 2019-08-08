@@ -15,6 +15,7 @@ use App\UserContext\Infrastructure\Serialization\Serializer as SerializerInterfa
 
 class SymfonySerializer implements SerializerInterface
 {
+    /** @var Serializer */
     private $serializer;
 
     public function __construct()

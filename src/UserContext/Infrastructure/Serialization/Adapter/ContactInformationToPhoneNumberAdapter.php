@@ -32,6 +32,7 @@ class ContactInformationToPhoneNumberAdapter
                     $result[] = $userPhone;
                 } catch (UnknownUserPhoneException $e) {
                    // this user phone is ignored
+                    continue;
                 }
             }
         }

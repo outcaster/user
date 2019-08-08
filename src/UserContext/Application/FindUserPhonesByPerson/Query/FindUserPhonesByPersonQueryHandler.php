@@ -4,18 +4,18 @@ declare(strict_types = 1);
 namespace App\UserContext\Application\FindUserPhonesByPerson\Query;
 
 use App\Shared\Domain\CQRS\Query\QueryHandler;
-use App\UserContext\Infrastructure\Persistence\SearchPhoneNumbersSearchUserByIdentityRepository;
+use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
 
 class FindUserPhonesByPersonQueryHandler implements QueryHandler
 {
-    /** @var SearchPhoneNumbersSearchUserByIdentityRepository */
+    /** @var SearchUserPhoneNumbersRepository */
     private $repository;
 
     /**
      * FindUserPhonesByPersonQueryHandler constructor.
-     * @param SearchPhoneNumbersSearchUserByIdentityRepository $repository
+     * @param SearchUserPhoneNumbersRepository $repository
      */
-    public function __construct(SearchPhoneNumbersSearchUserByIdentityRepository $repository)
+    public function __construct(SearchUserPhoneNumbersRepository $repository)
     {
         $this->repository = $repository;
     }

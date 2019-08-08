@@ -8,6 +8,7 @@ use App\UserContext\Domain\Services\GetPhoneNumberByNameFinder;
 
 class GetPhoneNumberQueryHandler implements QueryHandler
 {
+    /** @var GetPhoneNumberByNameFinder */
     private $getPhoneNumberByNameManager;
 
     public function __construct(GetPhoneNumberByNameFinder $getPhoneNumberByNameManager)

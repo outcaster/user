@@ -3,44 +3,47 @@ declare(strict_types = 1);
 
 namespace App\Shared\Infrastructure\CQRS\Query;
 
+use TypeError;
 use App\Shared\Domain\CQRS\Query\Query;
 use App\Shared\Domain\CQRS\Query\QueryBus;
 use App\Shared\Domain\CQRS\Query\Response;
-use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneNumberQueryHandler;
-use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneQuery;
 
 /**
- * Class InMemoryQueryBus. TODO: Is this class needed? if is not, delete it
+ * Class InMemoryQueryBus.
  *
  * @package App\Shared\Infrastructure\CQRS\Query
  */
 class InMemoryQueryBus implements QueryBus
 {
-    /** @var GetPhoneNumberQueryHandler */
-    private $getPhoneQueryHandler;
+
+    /** @var array */
+    private $handlers;
 
     /**
      * InMemoryQueryBus constructor.
-     * @param GetPhoneNumberQueryHandler $getPhoneQueryHandler
+     * @param array $handlers
      */
-    public function __construct(GetPhoneNumberQueryHandler $getPhoneQueryHandler)
+    public function __construct(array $handlers)
     {
-        $this->getPhoneQueryHandler = $getPhoneQueryHandler;
+        $this->handlers = $handlers;
     }
 
     /**
-     * TODO: doc
+     * Call to first handler able to manage it
+     *
      * @param Query $query
      * @return Response|null
      */
     public function ask(Query $query): ?Response
     {
-        $handler = $this->getPhoneQueryHandler;
-
-        if ($query instanceof GetPhoneQuery) {
-            return $handler($query);
-        } else {
-            return null;
+        foreach ($this->handlers as $handler) {
+            try {
+                return $handler($query);
+            } catch (TypeError $exception) {
+                // try with another
+                continue;
+            }
         }
+        return null;
     }
 }
