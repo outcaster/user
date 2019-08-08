@@ -28,7 +28,6 @@ class GetPhoneNumberByNameFinder
         $result = [];
         //1. get the identities
         $people = $this->identitySearchByNameRepository->search($query->getName());
-        //die(var_dump($identities));
 
         //2.foreach identity get the user contact information
         /** @var Person $person */

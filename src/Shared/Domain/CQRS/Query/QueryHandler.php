@@ -6,4 +6,5 @@ namespace App\Shared\Domain\CQRS\Query;
 
 interface QueryHandler
 {
+    public function __invoke($query);
 }

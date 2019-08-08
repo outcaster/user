@@ -6,19 +6,24 @@ namespace App\Shared\Infrastructure\CQRS\Query;
 use App\Shared\Domain\CQRS\Query\Query;
 use App\Shared\Domain\CQRS\Query\QueryBus;
 use App\Shared\Domain\CQRS\Query\Response;
-use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneNumberHandler;
+use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneNumberQueryHandler;
 use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneQuery;
 
+/**
+ * Class InMemoryQueryBus. TODO: Is this class needed? if is not, delete it
+ *
+ * @package App\Shared\Infrastructure\CQRS\Query
+ */
 class InMemoryQueryBus implements QueryBus
 {
-    /** @var GetPhoneNumberHandler */
+    /** @var GetPhoneNumberQueryHandler */
     private $getPhoneQueryHandler;
 
     /**
      * InMemoryQueryBus constructor.
-     * @param GetPhoneNumberHandler $getPhoneQueryHandler
+     * @param GetPhoneNumberQueryHandler $getPhoneQueryHandler
      */
-    public function __construct(GetPhoneNumberHandler $getPhoneQueryHandler)
+    public function __construct(GetPhoneNumberQueryHandler $getPhoneQueryHandler)
     {
         $this->getPhoneQueryHandler = $getPhoneQueryHandler;
     }
