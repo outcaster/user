@@ -9,8 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GetPhoneResponseHandler
 {
-    public function success($result): Response
+    public function success(GetPhoneQueryResponse $result): Response
     {
-        return new JsonResponse($result instanceof GetPhoneQueryResponse ? $result->items(): $result);
+        return new JsonResponse($result->items());
     }
 }

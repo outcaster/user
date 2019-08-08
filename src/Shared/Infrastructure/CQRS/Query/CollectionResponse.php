@@ -13,11 +13,28 @@ abstract class CollectionResponse implements Countable, IteratorAggregate
     /** @var array */
     private $items;
 
+    /**
+     * @return string class name of the collection type
+     */
+    abstract protected function type(): string;
+
+    /**
+     * CollectionResponse constructor.
+     * @param array $items
+     */
     public function __construct(array $items)
     {
         self::arrayOf($this->type(), $items);
 
         $this->items = $items;
+    }
+
+    /**
+     * @return array collection items
+     */
+    public function items()
+    {
+        return $this->items;
     }
 
     public function getIterator()
@@ -30,12 +47,12 @@ abstract class CollectionResponse implements Countable, IteratorAggregate
         return count($this->items());
     }
 
-    public function items()
-    {
-        return $this->items;
-    }
-    abstract protected function type(): string;
-
+    /**
+     * Validate all the types of the selected collection items
+     *
+     * @param string $class
+     * @param array $items
+     */
     protected function arrayOf(string $class, array $items): void
     {
         foreach ($items as $item) {
@@ -43,6 +60,14 @@ abstract class CollectionResponse implements Countable, IteratorAggregate
         }
     }
 
+    /**
+     * Check if an item is an instance of $class
+     *
+     * @param $class
+     * @param $item
+     *
+     * @throws InvalidArgumentException if the item is not $class type
+     */
     protected function instanceOf($class, $item): void
     {
         if (!$item instanceof $class) {

@@ -58,14 +58,14 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         $response = $getPhoneNumberByNameFinder->find(new GetPhoneQuery('Connor'));
 
         // Then
-        Assert::assertTrue(sizeof($response) > 0);
-        Assert::assertSame($identity, $response[0]->person);
-        Assert::assertEquals($identity->id, $response[0]->person->id);
+        Assert::assertTrue(sizeof($response->items()) > 0);
+        Assert::assertSame($identity, $response->items()[0]->person);
+        Assert::assertEquals($identity->id, $response->items()[0]->person->id);
         Assert::assertSame([
             UserPhoneType::PERSONAL_NUMBER_TEXT => $phoneOne->getPhoneNumber(),
             UserPhoneType::WORK_NUMBER_TEXT => $phoneTwo->getPhoneNumber(),
             UserPhoneType::MOBILE_NUMBER_TEXT => $phoneThree->getPhoneNumber(),
-        ], $response[0]->phoneNumbers);
+        ], $response->items()[0]->phoneNumbers);
     }
 
     public function tearDown(): void
