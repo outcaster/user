@@ -68,7 +68,7 @@ abstract class CollectionResponse implements Countable, IteratorAggregate
      *
      * @throws InvalidArgumentException if the item is not $class type
      */
-    protected function instanceOf(string $class, \stdClass $item): void
+    protected function instanceOf(string $class, $item): void
     {
         if (!$item instanceof $class) {
             throw new InvalidArgumentException(

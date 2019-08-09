@@ -11,18 +11,28 @@ use App\UserContext\Infrastructure\Serialization\Adapter\IdentityToPersonAdapter
 
 class SearchPersonSearchByNameRepository implements SearchPersonRepository
 {
+    /** @var ApiClient  */
     private $client;
+
+    /** @var Serializer  */
     private $serializer;
+
+    /** @var IdentityToPersonAdapter  */
     private $identityAdapter;
+
+    /** @var string */
+    private $apiEndpoint;
 
     public function __construct(
         ApiClient $client,
         Serializer $serializer,
-        IdentityToPersonAdapter $identityAdapter
+        IdentityToPersonAdapter $identityAdapter,
+        string $apiEndpoint
     ) {
         $this->client     = $client;
         $this->serializer = $serializer;
         $this->identityAdapter = $identityAdapter;
+        $this->apiEndpoint = $apiEndpoint;
     }
 
     /**
@@ -46,7 +56,7 @@ class SearchPersonSearchByNameRepository implements SearchPersonRepository
         $apiResponse = $this
             ->client
             ->post(
-                'http://localhost/dpm/public/index.php/v1/identity/searchby',
+                $this->apiEndpoint . '/v1/identity/searchby',
                 $body
             );
 
