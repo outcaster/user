@@ -14,7 +14,10 @@ final class UserPhoneType
     const WORK_NUMBER_TEXT = 'WorkNumber';
     const MOBILE_NUMBER_TEXT = 'MobileNumber';
 
+    /** @var int */
     private $contactId;
+
+    /** @var string */
     public $contactName;
 
     /**
