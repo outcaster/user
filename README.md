@@ -1,3 +1,68 @@
+# User Proof of Concept (PoC)
+
+This project is a PoC for a DDD project based on Symfony 4 as middleware API for another API.
+
+## Dependencies
+
+* Docker (to build using composer docker container and perform QA)
+* PHP 7.2 (to run it as simple server)
+* DPM project - https://bitbucket.org/aareonsevillebackend/dpm
+
+## Build
+
+> cmd/composer install
+
+## Run
+
+(please build it before and do the same with dpm project)
+
+> $ Make
+
+## Test it
+
+You have a postman collection and an example environment ready to run in `postman` folder.
+
+## Additional scripts
+
+You have different scripts available in the `cmd` folder: 
+
+```
+cmd/
+├── composer
+├── dashboard
+├── pdepend
+├── phpcbf
+├── phpcpd
+├── phpcs
+├── phplint
+├── phpmetrics
+├── phpstan
+├── phpunit
+└── qa
+``` 
+
+### phpcbf - PHP Code Beautifier and Fixer fixes violations of a defined coding standard
+
+This script fixes your code violations from the coding standards. Please use it before commit it.
+
+### QA metrics
+
+> cmd/QA
+
+It uses a simple script that call to all enabled metrics:
+
+* phpunit
+* phpstan
+* pdepend
+* phpcs
+* phpcpd
+* phpmetrics
+* dashboard
+
+Note that you could open the generated report in your browser.
+
+## Bitbucket boilerplate
+
 **Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
 
 When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
@@ -6,7 +71,7 @@ When you're done, you can delete the content in this README and update the file 
 
 ---
 
-## Edit a file
+### Edit a file
 
 You’ll start by editing this README file to learn how to edit a file in Bitbucket.
 
@@ -19,7 +84,7 @@ You’ll start by editing this README file to learn how to edit a file in Bitbuc
 
 ---
 
-## Create a file
+### Create a file
 
 Next, you’ll add a new file to this repository.
 
@@ -33,7 +98,7 @@ Before you move on, go ahead and explore the repository. You've already seen the
 
 ---
 
-## Clone a repository
+### Clone a repository
 
 Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
 
