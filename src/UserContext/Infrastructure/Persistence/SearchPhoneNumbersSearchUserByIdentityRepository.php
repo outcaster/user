@@ -11,18 +11,28 @@ use App\UserContext\Infrastructure\Serialization\Adapter\ContactInformationToPho
 
 class SearchPhoneNumbersSearchUserByIdentityRepository implements SearchUserPhoneNumbersRepository
 {
+    /** @var ApiClient */
     private $client;
+
+    /** @var Serializer */
     private $serializer;
+
+    /** @var ContactInformationToPhoneNumberAdapter */
     private $contactAdapter;
+
+    /** @var string */
+    private $apiEndpoint;
 
     public function __construct(
         ApiClient $client,
         Serializer $serializer,
-        ContactInformationToPhoneNumberAdapter $contactAdapter
+        ContactInformationToPhoneNumberAdapter $contactAdapter,
+        string $apiEndpoint
     ) {
         $this->client     = $client;
         $this->serializer = $serializer;
         $this->contactAdapter = $contactAdapter;
+        $this->apiEndpoint = $apiEndpoint;
     }
 
     /**
@@ -34,7 +44,7 @@ class SearchPhoneNumbersSearchUserByIdentityRepository implements SearchUserPhon
 
         $apiResponse = $this
             ->client
-            ->get('http://localhost/dpm/public/index.php/v1/contactinformation/' . $id);
+            ->get($this->apiEndpoint. '/v1/contactinformation/' . $id);
 
         $responseWrapper = $this->serializer->deserialize(
             $apiResponse->getBody()->getContents(),
