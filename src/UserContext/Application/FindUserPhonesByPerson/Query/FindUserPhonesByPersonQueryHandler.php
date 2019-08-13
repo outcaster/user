@@ -4,25 +4,24 @@ declare(strict_types = 1);
 namespace App\UserContext\Application\FindUserPhonesByPerson\Query;
 
 use App\Shared\Domain\CQRS\Query\QueryHandler;
-use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
+use App\UserContext\Domain\Services\UserPhonesByPersonFinder;
 
 class FindUserPhonesByPersonQueryHandler implements QueryHandler
 {
-    /** @var SearchUserPhoneNumbersRepository */
-    private $repository;
+    /** @var UserPhonesByPersonFinder */
+    private $finder;
 
     /**
      * FindUserPhonesByPersonQueryHandler constructor.
-     * @param SearchUserPhoneNumbersRepository $repository
+     * @param UserPhonesByPersonFinder $finder
      */
-    public function __construct(SearchUserPhoneNumbersRepository $repository)
+    public function __construct(UserPhonesByPersonFinder $finder)
     {
-        $this->repository = $repository;
+        $this->finder = $finder;
     }
-
 
     public function __invoke(FindUserPhonesByPersonQuery $query) :?FindUserPhonesByPersonQueryResponse
     {
-        return new FindUserPhonesByPersonQueryResponse($this->repository->search($query->getPerson()->getId()));
+        return $this->finder->find($query);
     }
 }

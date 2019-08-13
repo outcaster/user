@@ -4,25 +4,25 @@ declare(strict_types = 1);
 namespace App\UserContext\Application\FindPersonByName\Query;
 
 use App\Shared\Domain\CQRS\Query\QueryHandler;
-use App\UserContext\Domain\Repository\SearchPersonRepository;
+use App\UserContext\Domain\Services\PersonByNameFinder;
 
 class FindPersonByNameQueryHandler implements QueryHandler
 {
-    /** @var SearchPersonRepository */
-    private $searchPersonRepository;
+    /** @var PersonByNameFinder */
+    private $finder;
 
     /**
      * FindPersonByNameQueryHandler constructor.
-     * @param SearchPersonRepository $searchPersonRepository
+     * @param PersonByNameFinder $finder
      */
-    public function __construct(SearchPersonRepository $searchPersonRepository)
+    public function __construct(PersonByNameFinder $finder)
     {
-        $this->searchPersonRepository = $searchPersonRepository;
+        $this->finder = $finder;
     }
 
 
     public function __invoke(FindPersonByNameQuery $query) :?FindPersonByNameQueryResponse
     {
-        return new FindPersonByNameQueryResponse($this->searchPersonRepository->search($query->getName()));
+        return $this->finder->find($query);
     }
 }

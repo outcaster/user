@@ -44,7 +44,7 @@ class SearchPhoneNumbersSearchUserByIdentityRepository implements SearchUserPhon
 
         $apiResponse = $this
             ->client
-            ->get($this->apiEndpoint. '/v1/contactinformation/' . $id);
+            ->get($this->apiEndpoint . '/v1/contactinformation/' . $id);
 
         $responseWrapper = $this->serializer->deserialize(
             $apiResponse->getBody()->getContents(),
