@@ -1,14 +1,10 @@
 <?php
-
+declare(strict_types = 1);
 
 namespace App\Tests\UserContext\Domain\Services;
 
-
-use App\Shared\Infrastructure\CQRS\Query\InMemoryQueryBus;
-use App\UserContext\Application\FindPersonByName\Query\FindPersonByNameQuery;
-use App\UserContext\Application\FindPersonByName\Query\FindPersonByNameQueryHandler;
-use App\UserContext\Application\FindUserPhonesByPerson\Query\FindUserPhonesByPersonQuery;
-use App\UserContext\Application\FindUserPhonesByPerson\Query\FindUserPhonesByPersonQueryHandler;
+use App\UserContext\Application\FindPersonByName\Query\FindPersonByNameQueryResponse;
+use App\UserContext\Application\FindUserPhonesByPerson\Query\FindUserPhonesByPersonQueryResponse;
 use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneQuery;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\UserPhone;
@@ -22,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 class GetPhoneNumberByNameFinderTest extends TestCase
 {
     /** @test */
-    public function itShouldFindAUserPhone()
+    public function itShouldFindAUserPhone(): void
     {
         // ---------------- Given ----------------
 
@@ -49,28 +45,19 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         $phoneThree->shouldReceive('getPhoneNumber')
             ->andReturn('77777777');
 
-        // queries
-        $personQuery = new FindPersonByNameQuery('Connor');
-        $userPhonesQuery = new FindUserPhonesByPersonQuery($identity);
-
         // service mocking (used through query bus)
         $personFinder = \Mockery::mock(PersonByNameFinder::class);
         $personFinder->shouldReceive('find')
-            //->with($personQuery)
-            ->andReturn([$identity]);
+            ->andReturn(new FindPersonByNameQueryResponse([$identity]));
 
         $userPhonesFinder = \Mockery::mock(UserPhonesByPersonFinder::class);
         $userPhonesFinder->shouldReceive('find')
-            //->with($userPhonesQuery)
-            ->andReturn([$phoneOne, $phoneTwo, $phoneThree]);
-
-        // handlers
-        $findPeopleHandler = new FindPersonByNameQueryHandler($personFinder);
-        $findPhoneHandler = new FindUserPhonesByPersonQueryHandler($userPhonesFinder);
+            ->andReturn(new FindUserPhonesByPersonQueryResponse([$phoneOne, $phoneTwo, $phoneThree]));
 
         // initialize the finder
         $getPhoneNumberByNameFinder = new GetPhoneNumberByNameFinder(
-            new InMemoryQueryBus([$findPeopleHandler, $findPhoneHandler])
+            $personFinder,
+            $userPhonesFinder
         );
 
         // ---------------- When ----------------

@@ -3,29 +3,34 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Presentation\GetPhoneNumber\Query;
 
-use App\Shared\Domain\CQRS\Query\QueryBus;
+use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneNumberQueryHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GetPhoneNumberController extends AbstractController
 {
+    /** @var GetPhoneQueryAdapter */
     protected $queryAdapter;
-    protected $queryBus;
+
+    /** @var GetPhoneNumberQueryHandler */
+    protected $handler;
+
+    /** @var GetPhoneResponseHandler */
     protected $responseHandler;
 
     /**
      * Base of any QueryController constructors.
      *
-     * @param   $queryAdapter
-     * @param   $queryBus
-     * @param   $responseHandler
+     * @param GetPhoneQueryAdapter $queryAdapter
+     * @param GetPhoneNumberQueryHandler $handler
+     * @param GetPhoneResponseHandler $responseHandler
      */
     public function __construct(
         GetPhoneQueryAdapter $queryAdapter,
-        QueryBus $queryBus,
+        GetPhoneNumberQueryHandler $handler,
         GetPhoneResponseHandler $responseHandler
     ) {
         $this->queryAdapter    = $queryAdapter;
-        $this->queryBus    = $queryBus;
+        $this->handler    = $handler;
         $this->responseHandler = $responseHandler;
     }
 
@@ -34,8 +39,9 @@ class GetPhoneNumberController extends AbstractController
         // 1. Transform Request to Query.
         $query = $this->queryAdapter->getQueryFromRequest($name);
 
-        // 2. Business work due to the Query and the query bus.
-        $result = $this->queryBus->ask($query);
+        // 2. Business work due to the Query handler.
+        $handler = $this->handler;
+        $result = $handler($query);
 
         // 3. Format using the business work and return the Response.
         return $this->responseHandler->success($result);

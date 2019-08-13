@@ -9,6 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GetPhoneResponseHandler
 {
+    /**
+     * @param GetPhoneQueryResponse $result
+     * @return Response
+     */
     public function success(GetPhoneQueryResponse $result): Response
     {
         return new JsonResponse($result->items());

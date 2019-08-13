@@ -5,7 +5,10 @@ namespace App\UserContext\Domain\Entities;
 
 class UserPhone
 {
+    /** @var UserPhoneType */
     public $type;
+
+    /** @var string */
     public $phoneNumber;
 
     /**

@@ -3,3 +3,7 @@ includes:
     - vendor/phpstan/phpstan-deprecation-rules/rules.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan-phpunit/rules.neon
+
+parameters:
+    autoload_files:
+            - vendor/bin/.phpunit/phpunit-7.4/vendor/autoload.php

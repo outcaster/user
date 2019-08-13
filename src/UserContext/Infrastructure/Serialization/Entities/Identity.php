@@ -9,6 +9,7 @@ class Identity
 {
     /**
      * @Type("integer")
+     * @var int
      */
     private $id;
 
@@ -30,7 +31,7 @@ class Identity
      * @param integer id
      * @return void
      */
-    public function setId($id) :void
+    public function setId(int $id) :void
     {
         $this->id = $id;
     }

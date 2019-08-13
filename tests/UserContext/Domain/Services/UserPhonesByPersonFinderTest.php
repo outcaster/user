@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 class UserPhonesByPersonFinderTest extends TestCase
 {
     /** @test */
-    public function itShouldFindUserPhones()
+    public function itShouldFindUserPhones(): void
     {
         //----------------  Given ----------------
         // mock the entities

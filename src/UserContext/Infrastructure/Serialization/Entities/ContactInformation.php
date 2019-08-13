@@ -9,6 +9,7 @@ class ContactInformation
 {
     /**
      * @Type("integer")
+     * @var ContactInformationIdentity
      */
     private $contactInformationId;
 

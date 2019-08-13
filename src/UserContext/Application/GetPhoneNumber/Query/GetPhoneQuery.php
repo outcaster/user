@@ -3,9 +3,7 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Application\GetPhoneNumber\Query;
 
-use App\Shared\Domain\CQRS\Query\Query;
-
-final class GetPhoneQuery implements Query
+final class GetPhoneQuery
 {
     /** @var string */
     private $name;
@@ -15,6 +13,9 @@ final class GetPhoneQuery implements Query
         $this->name = $name;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;

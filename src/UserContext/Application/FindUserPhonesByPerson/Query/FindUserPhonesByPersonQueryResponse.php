@@ -3,11 +3,10 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Application\FindUserPhonesByPerson\Query;
 
-use App\Shared\Domain\CQRS\Query\Response;
-use App\Shared\Infrastructure\CQRS\Query\CollectionResponse;
+use App\Shared\Domain\Query\CollectionResponse;
 use App\UserContext\Domain\Entities\UserPhone;
 
-class FindUserPhonesByPersonQueryResponse extends CollectionResponse implements Response
+class FindUserPhonesByPersonQueryResponse extends CollectionResponse
 {
     protected function type(): string
     {

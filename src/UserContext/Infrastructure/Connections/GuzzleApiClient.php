@@ -8,14 +8,24 @@ use GuzzleHttp\RequestOptions;
 
 class GuzzleApiClient implements ApiClient
 {
+    /** @var Client  */
     private $client;
 
+    /**
+     * GuzzleApiClient constructor.
+     */
     public function __construct()
     {
         $this->client = new Client();
     }
 
-    function post(string $url, array $body)
+    /**
+     * @param string $url
+     * @param array $body
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function post(string $url, array $body)
     {
         return $apiResponse = $this
             ->client
@@ -27,7 +37,12 @@ class GuzzleApiClient implements ApiClient
             );
     }
 
-    function get(string $url)
+    /**
+     * @param string $url
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function get(string $url)
     {
         return $apiResponse = $this->client->get($url);
     }

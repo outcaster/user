@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 class PersonByNameFinderTest extends TestCase
 {
     /** @test */
-    public function itShouldFindAPerson()
+    public function itShouldFindAPerson(): void
     {
         // ---------------- Given ----------------
         // mock the entities

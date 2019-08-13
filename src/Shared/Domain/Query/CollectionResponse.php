@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Shared\Infrastructure\CQRS\Query;
+namespace App\Shared\Domain\Query;
 
 use ArrayIterator;
 use Countable;
@@ -37,11 +37,17 @@ abstract class CollectionResponse implements Countable, IteratorAggregate
         return $this->items;
     }
 
+    /**
+     * @return ArrayIterator|\Traversable
+     */
     public function getIterator()
     {
         return new ArrayIterator($this->items());
     }
 
+    /**
+     * @return int|void
+     */
     public function count()
     {
         return count($this->items());

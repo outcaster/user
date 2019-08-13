@@ -28,6 +28,10 @@ class UserPhonesByPersonFinder
      */
     public function find(FindUserPhonesByPersonQuery $query) :?FindUserPhonesByPersonQueryResponse
     {
-        return new FindUserPhonesByPersonQueryResponse($this->searchPersonRepository->search($query->getPerson()->getId()));
+        return new FindUserPhonesByPersonQueryResponse(
+            $this->searchPersonRepository->search(
+                $query->getPerson()->getId()
+            )
+        );
     }
 }

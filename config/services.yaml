@@ -11,12 +11,8 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-        # auto bind -  CQRS buses
+        # auto bind
         bind:
-            $commandBus: '@domain.command.bus'
-            $queryBus: '@domain.query.bus'
-            $eventBus: '@domain.event.bus'
-
             # external DIL API endpoint
             $apiEndpoint: '%env(DIL_ENDPOINT)%'
 
@@ -52,17 +48,3 @@ services:
         arguments:
             - '@user.infrastructure.connections.api.guzzle_client'
             - '@user.infrastructure.serialization.symfony_serializer'
-
-    #### CQRS
-    # query bus
-    domain.query.bus:
-        class: App\Shared\Infrastructure\CQRS\Query\SymfonyQueryBus
-        arguments:
-            - '@query.bus'
-    # query handlers
-    query_handlers:
-        namespace: App\UserContext\Infrastructure\CQRS\MessageHandler\
-        resource: '%kernel.project_dir%/src/UserContext/*QueryHandler.php'
-        autoconfigure: true
-        tags:
-            - { name: messenger.message_handler, bus: query.bus }

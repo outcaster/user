@@ -3,9 +3,7 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Application\FindPersonByName\Query;
 
-use App\Shared\Domain\CQRS\Query\Query;
-
-final class FindPersonByNameQuery implements Query
+final class FindPersonByNameQuery
 {
     /** @var string */
     private $name;
@@ -15,6 +13,9 @@ final class FindPersonByNameQuery implements Query
         $this->name = $name;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;

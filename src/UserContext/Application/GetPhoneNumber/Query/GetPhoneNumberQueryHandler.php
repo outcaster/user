@@ -3,10 +3,9 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Application\GetPhoneNumber\Query;
 
-use App\Shared\Domain\CQRS\Query\QueryHandler;
 use App\UserContext\Domain\Services\GetPhoneNumberByNameFinder;
 
-class GetPhoneNumberQueryHandler implements QueryHandler
+class GetPhoneNumberQueryHandler
 {
     /** @var GetPhoneNumberByNameFinder */
     private $getPhoneNumberByNameManager;

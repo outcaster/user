@@ -18,23 +18,12 @@ class SymfonySerializer implements SerializerInterface
     /** @var Serializer */
     private $serializer;
 
+    /**
+     * SymfonySerializer constructor.
+     */
     public function __construct()
     {
-        $objectNormalizer = new ObjectNormalizer(
-            null,
-            new CamelCaseToSnakeCaseNameConverter(),
-            null,
-            new PhpDocExtractor()
-        );
-
-        $this->serializer = new Serializer(
-            [
-                $objectNormalizer,
-                new GetSetMethodNormalizer(),
-                new ArrayDenormalizer(),
-            ],
-            [new JsonEncoder()]
-        );
+        $this->serializer = $this->getDefaultSerializer();
     }
 
     public function deserialize(string $body, string $classname, string $format)
@@ -43,6 +32,34 @@ class SymfonySerializer implements SerializerInterface
             $body,
             $classname,
             $format
+        );
+    }
+
+    /**
+     * @return ObjectNormalizer
+     */
+    protected function getDefaultNormalizer()
+    {
+        return new ObjectNormalizer(
+            null,
+            new CamelCaseToSnakeCaseNameConverter(),
+            null,
+            new PhpDocExtractor()
+        );
+    }
+
+    /**
+     * @return Serializer
+     */
+    protected function getDefaultSerializer()
+    {
+        return new Serializer(
+            [
+                $this->getDefaultNormalizer(),
+                new GetSetMethodNormalizer(),
+                new ArrayDenormalizer(),
+            ],
+            [new JsonEncoder()]
         );
     }
 }

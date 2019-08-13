@@ -23,7 +23,15 @@ final class ContactInformationAggregateRoot
     {
         $this->person = $person;
         $this->userPhones = $userPhones;
-        foreach ($userPhones as $userPhone) {
+        $this->buildPhoneNumbers();
+    }
+
+    /**
+     * Build $this->phoneNumbers array
+     */
+    protected function buildPhoneNumbers(): void
+    {
+        foreach ($this->userPhones as $userPhone) {
             $this->phoneNumbers[$userPhone->getType()->getContactName()] = $userPhone->getPhoneNumber();
         }
     }
