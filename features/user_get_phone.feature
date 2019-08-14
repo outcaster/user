@@ -6,18 +6,22 @@ Feature:
   In order to accomplish the fist use case, we have to get the user phone number
   when we ask the platform for an existing tenant
 
-  Scenario: It gets a phone number for an existing user
-    When I add "Content-Type" header equal to "application/json"
+  Scenario: It gets a phone number for an existing user (Api client approach)
+    Given the "Content-Type" request header is "application/json"
+    And the "Accept" request header is "application/json"
+    When I request "/user/v1/getphonenumber/Connor"
+    Then the response code is 200
+    And the response body is a JSON array with a length of at least 1
+
+  Scenario: It gets a phone number for an existing user (REST Context approach)
+    Given I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/users/v1/phone" with body:
-    """
-    {
-      "name": "Sample tenant"
-    }
-    """
+    When I send a "GET" request to "/user/v1/getphonenumber/Connor"
     Then the response should be in JSON
     And the header "Content-Type" should be equal to "application/json"
-    And the JSON nodes should contain:
-      | name                   | Sample tenant              |
-      | phoneNumber                  | 555555555     |
-    And the JSON node "enabled" should be true
+
+  Scenario: It tries to get a phone number without name (Api client)
+    Given the "Content-Type" request header is "application/json"
+    And the "Accept" request header is "application/json"
+    When I request "/user/v1/getphonenumber"
+    Then the response code is 404

@@ -11,6 +11,11 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
+        # auto bind
+        bind:
+            # external DIL API endpoint
+            $apiEndpoint: '%env(DIL_ENDPOINT)%'
+
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -25,3 +30,21 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    user.infrastructure.connections.api.guzzle_client:
+        class: App\UserContext\Infrastructure\Connections\ApiGuzzleClient
+
+    user.infrastructure.serialization.symfony_serializer:
+        class: App\UserContext\Infrastructure\Serialization\SymfonySerializer
+
+    user.infrastructure.persistence.identity_search_by_name_repository:
+        class: App\UserContext\Infrastructure\Persistence\IdentitySearchByNameRepository
+        arguments:
+            - '@user.infrastructure.connections.api.guzzle_client'
+            - '@user.infrastructure.serialization.symfony_serializer'
+
+    user.infrastructure.persistence.contact_information_repository:
+        class: App\UserContext\Infrastructure\Persistence\ContactInformationSearchByIdentityRepository
+        arguments:
+            - '@user.infrastructure.connections.api.guzzle_client'
+            - '@user.infrastructure.serialization.symfony_serializer'

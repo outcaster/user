@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "410c9ee2-58ba-42da-862a-0c45cc4e8413",
+		"name": "DP use cases",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost/dpm/public/index.php/v1/identity/searchby",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"criteria\":{\n       \"and\": [\n           {\n               \"field\":\"name\",\n               \"operator\":\"=\",\n               \"value\":\"Connor\"\n           }\n       ]\n    }\n}"
+				},
+				"url": {
+					"raw": "{{coreuser_url}}/v1/identity/searchby",
+					"host": [
+						"{{coreuser_url}}"
+					],
+					"path": [
+						"v1",
+						"identity",
+						"searchby"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/public/index.php/getphonenumber",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{middleware_url}}/user/v1/getphonenumber/test",
+					"host": [
+						"{{middleware_url}}"
+					],
+					"path": [
+						"user",
+						"v1",
+						"getphonenumber",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/dpm/public/index.php/v1/contactinformation/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{coreuser_url}}/v1/contactinformation/1",
+					"host": [
+						"{{coreuser_url}}"
+					],
+					"path": [
+						"v1",
+						"contactinformation",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

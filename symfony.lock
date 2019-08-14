@@ -1,4 +1,7 @@
 {
+    "beberlei/assert": {
+        "version": "v2.9.9"
+    },
     "behat/behat": {
         "version": "v3.5.0"
     },
@@ -19,6 +22,9 @@
     },
     "behatch/contexts": {
         "version": "3.2.0"
+    },
+    "composer/xdebug-handler": {
+        "version": "1.3.3"
     },
     "container-interop/container-interop": {
         "version": "1.2.0"
@@ -56,6 +62,9 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "firebase/php-jwt": {
+        "version": "v5.0.0"
+    },
     "friends-of-behat/symfony-extension": {
         "version": "2.0",
         "recipe": {
@@ -71,8 +80,53 @@
             "tests/Behat/DemoContext.php"
         ]
     },
+    "guzzlehttp/guzzle": {
+        "version": "6.3.3"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.6.1"
+    },
+    "hamcrest/hamcrest-php": {
+        "version": "v2.0.0"
+    },
+    "imbo/behat-api-extension": {
+        "version": "v2.1.0"
+    },
+    "jean85/pretty-package-versions": {
+        "version": "1.2"
+    },
     "justinrainbow/json-schema": {
         "version": "5.2.8"
+    },
+    "mockery/mockery": {
+        "version": "1.2.2"
+    },
+    "nette/bootstrap": {
+        "version": "v3.0.0"
+    },
+    "nette/di": {
+        "version": "v3.0.0"
+    },
+    "nette/finder": {
+        "version": "v2.5.0"
+    },
+    "nette/neon": {
+        "version": "v3.0.0"
+    },
+    "nette/php-generator": {
+        "version": "v3.2.3"
+    },
+    "nette/robot-loader": {
+        "version": "v3.2.0"
+    },
+    "nette/schema": {
+        "version": "v1.0.0"
+    },
+    "nette/utils": {
+        "version": "v3.0.1"
     },
     "nikic/php-parser": {
         "version": "v4.2.2"
@@ -83,14 +137,44 @@
     "ocramius/proxy-manager": {
         "version": "2.2.2"
     },
+    "phpdocumentor/reflection-common": {
+        "version": "1.0.1"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "4.3.1"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "0.4.0"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "0.3.5"
+    },
+    "phpstan/phpstan": {
+        "version": "0.11.12"
+    },
+    "phpstan/phpstan-deprecation-rules": {
+        "version": "0.11.2"
+    },
+    "phpstan/phpstan-phpunit": {
+        "version": "0.11.2"
+    },
+    "phpstan/phpstan-strict-rules": {
+        "version": "0.11.1"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/log": {
         "version": "1.1.0"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
@@ -102,6 +186,18 @@
         },
         "files": [
             "config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "0dc9cceda799fd3a08b96987e176a261028a3709"
+        },
+        "files": [
+            "phpcs.xml.dist"
         ]
     },
     "symfony/browser-kit": {
@@ -211,6 +307,22 @@
     "symfony/mime": {
         "version": "v4.3.2"
     },
+    "symfony/phpunit-bridge": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "b0582341f1df39aaf3a9a866cdbe49937da35984"
+        },
+        "files": [
+            ".env.test",
+            "bin/phpunit",
+            "config/bootstrap.php",
+            "phpunit.xml.dist",
+            "tests/.gitignore"
+        ]
+    },
     "symfony/polyfill-intl-idn": {
         "version": "v1.11.0"
     },
@@ -224,6 +336,9 @@
         "version": "v1.11.0"
     },
     "symfony/property-access": {
+        "version": "v4.3.2"
+    },
+    "symfony/property-info": {
         "version": "v4.3.2"
     },
     "symfony/proxy-manager-bridge": {
@@ -244,8 +359,14 @@
             "config/routes.yaml"
         ]
     },
+    "symfony/serializer": {
+        "version": "v4.3.2"
+    },
     "symfony/service-contracts": {
         "version": "v1.1.5"
+    },
+    "symfony/test-pack": {
+        "version": "v1.0.6"
     },
     "symfony/translation": {
         "version": "3.3",
@@ -263,11 +384,27 @@
     "symfony/translation-contracts": {
         "version": "v1.1.5"
     },
+    "symfony/validator": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "d902da3e4952f18d3bf05aab29512eb61cabd869"
+        },
+        "files": [
+            "config/packages/test/validator.yaml",
+            "config/packages/validator.yaml"
+        ]
+    },
     "symfony/var-exporter": {
         "version": "v4.3.2"
     },
     "symfony/yaml": {
         "version": "v4.3.2"
+    },
+    "webmozart/assert": {
+        "version": "1.4.0"
     },
     "zendframework/zend-code": {
         "version": "3.3.1"

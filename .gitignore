@@ -1,8 +1,8 @@
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
 /.env.*.local
+/.env.test
 /public/bundles/
 /var/
 /vendor/
@@ -19,3 +19,15 @@
 ###< CI and QA ###
 /data/
 ###> CI and QA ###
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+/phpunit.xml.dist
+/bin/phpunit
+###< symfony/phpunit-bridge ###
