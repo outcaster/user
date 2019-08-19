@@ -9,7 +9,7 @@ class ContactInformation
 {
     /**
      * @Type("integer")
-     * @var ContactInformationIdentity
+     * @var int
      */
     private $contactInformationId;
 
@@ -20,7 +20,7 @@ class ContactInformation
     private $contactInformationIdentity;
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getContactInformationId()
     {

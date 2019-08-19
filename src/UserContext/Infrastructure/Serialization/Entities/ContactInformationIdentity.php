@@ -7,14 +7,15 @@ class ContactInformationIdentity
 {
     /**
      * @Type("string")
-     * @var string
+     * @Nullable
+     * @var string|null
      */
     private $data;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getData(): string
+    public function getData(): ?string
     {
         return $this->data;
     }
@@ -23,7 +24,7 @@ class ContactInformationIdentity
      * @param string $data
      * @return ContactInformationIdentity
      */
-    public function setData(string $data): ContactInformationIdentity
+    public function setData(?string $data): ContactInformationIdentity
     {
         $this->data = $data;
         return $this;

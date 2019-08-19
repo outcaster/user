@@ -6,7 +6,7 @@ namespace App\UserContext\Infrastructure\Serialization\Entities;
 class ContactInformationSearchResponseWrapper
 {
     /**
-     * @var  \App\UserContext\Infrastructure\Serialization\Entities\ContactInformation[][]
+     * @var  \App\UserContext\Infrastructure\Serialization\Entities\ContactInformation[]
      * @Type("array<App\UserContext\Infrastructure\Serialization\Entities\ContactInformation>")
      */
     private $results;
@@ -17,7 +17,7 @@ class ContactInformationSearchResponseWrapper
     }
 
     /**
-     * @param  \App\UserContext\Infrastructure\Serialization\Entities\ContactInformation[][] $results
+     * @param  \App\UserContext\Infrastructure\Serialization\Entities\ContactInformation[] $results
      * @return void
      */
     public function setResults(array $results) :void

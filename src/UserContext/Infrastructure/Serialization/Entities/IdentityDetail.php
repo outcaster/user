@@ -7,20 +7,22 @@ class IdentityDetail
 {
     /**
      * @Type("string")
-     * @var string
+     * @Nullable
+     * @var string|null
      */
     private $name;
 
     /**
      * @Type("string")
-     * @var string
+     * @Nullable
+     * @var string|null
      */
     private $firstName;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -36,9 +38,9 @@ class IdentityDetail
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFirstName(): string
+    public function getFirstName(): ?string
     {
         return $this->firstName;
     }
@@ -47,7 +49,7 @@ class IdentityDetail
      * @param string $firstName
      * @return IdentityDetail
      */
-    public function setFirstName(string $firstName): IdentityDetail
+    public function setFirstName(?string $firstName): IdentityDetail
     {
         $this->firstName = $firstName;
         return $this;
