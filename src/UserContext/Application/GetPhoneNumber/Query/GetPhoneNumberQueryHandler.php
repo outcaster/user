@@ -17,6 +17,6 @@ class GetPhoneNumberQueryHandler
 
     public function __invoke(GetPhoneQuery $query) :?GetPhoneQueryResponse
     {
-        return $this->getPhoneNumberByNameManager->find($query);
+        return $this->getPhoneNumberByNameManager->find($query->getName());
     }
 }
