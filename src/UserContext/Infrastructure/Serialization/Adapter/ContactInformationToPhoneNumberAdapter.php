@@ -19,21 +19,19 @@ class ContactInformationToPhoneNumberAdapter
     {
         $result = [];
         /** @var ContactInformation[] $contacts */
-        foreach ($searchResponseWrapper->getResults() as $contacts) {
-            foreach ($contacts as $contact) {
-                $phoneNumber = (!empty($contact->getContactInformationIdentity())
-                    && !empty($contact->getContactInformationIdentity()->getData())) ?
-                    $contact->getContactInformationIdentity()->getData() : '';
-                try {
-                    $userPhone = new UserPhone(
-                        new UserPhoneType($contact->getContactInformationId()),
-                        $phoneNumber
-                    );
-                    $result[] = $userPhone;
-                } catch (UnknownUserPhoneException $e) {
-                   // this user phone is ignored
-                    continue;
-                }
+        foreach ($searchResponseWrapper->getResults() as $contact) {
+            $phoneNumber = (!empty($contact->getContactInformationIdentity())
+                && !empty($contact->getContactInformationIdentity()->getData())) ?
+                $contact->getContactInformationIdentity()->getData() : '';
+            try {
+                $userPhone = new UserPhone(
+                    new UserPhoneType($contact->getContactInformationId()),
+                    $phoneNumber
+                );
+                $result[] = $userPhone;
+            } catch (UnknownUserPhoneException $e) {
+               // this user phone is ignored
+                continue;
             }
         }
 
