@@ -6,6 +6,7 @@ namespace App\UserContext\Domain\Services;
 use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneQueryResponse;
 use App\UserContext\Domain\Entities\ContactInformationAggregateRoot;
 use App\UserContext\Domain\Entities\Person;
+use App\UserContext\Domain\Entities\PersonName;
 
 class GetPhoneNumberByNameFinder
 {
@@ -32,7 +33,7 @@ class GetPhoneNumberByNameFinder
      * @param string $name
      * @return GetPhoneQueryResponse
      */
-    public function find(string $name) :GetPhoneQueryResponse
+    public function find(PersonName $name) :GetPhoneQueryResponse
     {
         $result = [];
         //1. get the identities
@@ -41,7 +42,7 @@ class GetPhoneNumberByNameFinder
         //2.foreach identity get the user contact information
         /** @var Person $person */
         foreach ($people as $person) {
-            $contactInfoArray = $this->userPhonesFinder->find($person);
+            $contactInfoArray = $this->userPhonesFinder->find($person->getId());
             //3. build the user telephone object
             $userPhone = new ContactInformationAggregateRoot($person, $contactInfoArray->items());
             $result[] = $userPhone;

@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace App\UserContext\Domain\Services;
 
 use App\UserContext\Application\FindPersonByName\Query\FindPersonByNameQueryResponse;
+use App\UserContext\Domain\Entities\PersonName;
 use App\UserContext\Domain\Repository\SearchPersonRepository;
 
 class PersonByNameFinder
@@ -22,11 +23,11 @@ class PersonByNameFinder
 
     /**
      * Find the person with the given name
-     * @param string $name
+     * @param PersonName $name
      * @return FindPersonByNameQueryResponse|null
      */
-    public function find(string $name) :?FindPersonByNameQueryResponse
+    public function find(PersonName $name) :?FindPersonByNameQueryResponse
     {
-        return new FindPersonByNameQueryResponse($this->searchPersonRepository->search($name));
+        return new FindPersonByNameQueryResponse($this->searchPersonRepository->search($name->getValue()));
     }
 }
