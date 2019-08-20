@@ -4,6 +4,8 @@ declare(strict_types = 1);
 namespace App\UserContext\Infrastructure\Serialization\Adapter;
 
 use App\UserContext\Domain\Entities\Person;
+use App\UserContext\Domain\Entities\PersonId;
+use App\UserContext\Domain\Entities\PersonName;
 use App\UserContext\Infrastructure\Serialization\Entities\Identity;
 use App\UserContext\Infrastructure\Serialization\Entities\IdentitySearchResponseWrapper;
 
@@ -25,7 +27,7 @@ class IdentityToPersonAdapter
                     $identity->getIdentity()->getName();
             }
 
-            $person = new Person($identity->getId(), $fullName);
+            $person = new Person(new PersonId($identity->getId()), new PersonName($fullName));
             $result[] = $person;
         }
 

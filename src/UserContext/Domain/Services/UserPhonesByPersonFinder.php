@@ -5,6 +5,7 @@ namespace App\UserContext\Domain\Services;
 
 use App\UserContext\Application\FindUserPhonesByPerson\Query\FindUserPhonesByPersonQueryResponse;
 use App\UserContext\Domain\Entities\Person;
+use App\UserContext\Domain\Entities\PersonId;
 use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
 
 class UserPhonesByPersonFinder
@@ -23,14 +24,14 @@ class UserPhonesByPersonFinder
 
     /**
      * Find the user phones by the person
-     * @param Person $person
+     * @param PersonId $personId
      * @return FindUserPhonesByPersonQueryResponse|null
      */
-    public function find(Person $person) :?FindUserPhonesByPersonQueryResponse
+    public function find(PersonId $personId) :?FindUserPhonesByPersonQueryResponse
     {
         return new FindUserPhonesByPersonQueryResponse(
             $this->searchPersonRepository->search(
-                $person->getId()
+                $personId->getValue()
             )
         );
     }

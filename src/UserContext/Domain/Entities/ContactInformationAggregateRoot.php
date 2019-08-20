@@ -5,11 +5,17 @@ namespace App\UserContext\Domain\Entities;
 
 final class ContactInformationAggregateRoot
 {
+    const PERSON_ID   = 'id';
+    const PERSON_NAME = 'name';
+
     /** @var Person */
-    public $person;
+    private $person;
 
     /** @var UserPhone[] */
     private $userPhones;
+
+    /** @var array */
+    public $personInfo = [];
 
     /** @var array */
     public $phoneNumbers = [];
@@ -24,6 +30,7 @@ final class ContactInformationAggregateRoot
         $this->person = $person;
         $this->userPhones = $userPhones;
         $this->buildPhoneNumbers();
+        $this->buildPersonInfo();
     }
 
     /**
@@ -34,5 +41,18 @@ final class ContactInformationAggregateRoot
         foreach ($this->userPhones as $userPhone) {
             $this->phoneNumbers[$userPhone->getType()->getContactName()] = $userPhone->getPhoneNumber();
         }
+    }
+
+    /**
+     * Build $this->phoneNumbers array
+     */
+    protected function buildPersonInfo(): void
+    {
+        $person = $this->person;
+
+        $this->personInfo = [
+            self::PERSON_ID => $person->getId()->getValue(),
+            self::PERSON_NAME => $person->getName()->getValue(),
+        ];
     }
 }
