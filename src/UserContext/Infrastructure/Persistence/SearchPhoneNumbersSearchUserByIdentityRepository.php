@@ -23,6 +23,12 @@ class SearchPhoneNumbersSearchUserByIdentityRepository implements SearchUserPhon
     /** @var string */
     private $apiEndpoint;
 
+    /**
+     * @var int $maxResults indicates the maximum
+     * of elements it will get to protect the API calls
+     */
+    private $maxResults = 10;
+
     public function __construct(
         ApiClient $client,
         Serializer $serializer,
@@ -41,10 +47,28 @@ class SearchPhoneNumbersSearchUserByIdentityRepository implements SearchUserPhon
      */
     public function search(int $id) :array
     {
-
+        /*
+         * Old method:
         $apiResponse = $this
             ->client
             ->get($this->apiEndpoint . '/v1/contactinformation/' . $id);
+        */
+
+        $body = [
+            'limit' => [
+                'start' => 0,
+                'count' => $this->maxResults,
+            ],
+            'criteria' => [
+                'field' => 'identity_id',
+                'operator' => '=',
+                'value' => $id,
+            ]
+        ];
+
+        $apiResponse = $this
+            ->client
+            ->post($this->apiEndpoint . '/v1/contactinformationidentity/searchby', $body);
 
         $responseWrapper = $this->serializer->deserialize(
             $apiResponse->getBody()->getContents(),

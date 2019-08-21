@@ -23,6 +23,12 @@ class SearchPersonSearchByNameRepository implements SearchPersonRepository
     /** @var string */
     private $apiEndpoint;
 
+    /**
+     * @var int $maxResults indicates the maximum
+     * of elements it will get to protect the API calls
+     */
+    private $maxResults = 10;
+
     public function __construct(
         ApiClient $client,
         Serializer $serializer,
@@ -41,7 +47,7 @@ class SearchPersonSearchByNameRepository implements SearchPersonRepository
      */
     public function search(string $name) :array
     {
-        $body = [
+        /*$body = [
             'criteria' => [
                 'and' => [
                     [
@@ -50,6 +56,18 @@ class SearchPersonSearchByNameRepository implements SearchPersonRepository
                         'value' => $name,
                     ]
                 ]
+            ]
+        ];*/
+
+        $body = [
+            'limit' => [
+                'start' => 0,
+                'count' => $this->maxResults,
+            ],
+            'criteria' => [
+                'field' => 'name',
+                'operator' => '=',
+                'value' => $name,
             ]
         ];
 

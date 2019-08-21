@@ -6,69 +6,409 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost/dpm/public/index.php/v1/identity/searchby",
+			"name": "UC-sevf-user - WORKS!",
+			"item": [
+				{
+					"name": "1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "135a7fa5-7fba-4f55-8872-47b1c9a51827",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"get user id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    pm.expect(jsonData.results).not.to.be.undefined;",
+									"    pm.expect(jsonData.results[0]).not.to.be.undefined;",
+									"    pm.expect(jsonData.results[0]['id']).not.to.be.null;",
+									"    ",
+									"    pm.environment.set(\"userId\", jsonData.results[0]['id']);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-TENANT-ID",
+								"value": "{{tenant_variable}}"
+							},
+							{
+								"key": "fingerprint",
+								"value": "{{fingerprint}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"limit\": {\"start\":0, \"count\":10},\n\t\"criteria\":{\n\t\t\"field\":\"name\",\n\t\t\"operator\":\"like\",\n\t\t\"value\":\"Vereinsbank\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{service-url-subdomain-prefix}}{{service-url-subdomain-prefix}}coreuser-orm{{service-url-subdomain-suffix}}{{service-url-domain}}/api/v1/identity/searchby",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{service-url-subdomain-prefix}}{{service-url-subdomain-prefix}}coreuser-orm{{service-url-subdomain-suffix}}{{service-url-domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"identity",
+								"searchby"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "75446031-85aa-460e-867d-0ba6fb7a2a76",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-TENANT-ID",
+								"value": "{{tenant_variable}}"
+							},
+							{
+								"key": "fingerprint",
+								"value": "{{fingerprint}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"criteria\":{\n        \"field\":\"identity_id\",\n        \"operator\":\"=\",\n        \"value\":\"{{userId}}\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{service-url-subdomain-prefix}}coreuser-orm{{service-url-subdomain-suffix}}{{service-url-domain}}/api/v1/contactinformationidentity/searchby",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{service-url-subdomain-prefix}}coreuser-orm{{service-url-subdomain-suffix}}{{service-url-domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"contactinformationidentity",
+								"searchby"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "de2895dd-4c9b-43c5-b35a-07aa06113157",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ad03943-3a7f-4f98-8026-7261d4c8b710",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "dpm",
+			"item": [
+				{
+					"name": "DPM get id 602",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{coreuser_url}}/v1/contactinformation/602",
+							"host": [
+								"{{coreuser_url}}"
+							],
+							"path": [
+								"v1",
+								"contactinformation",
+								"602"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DPM search Deutsche Bank",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"criteria\":{\n       \"and\": [\n           {\n               \"field\":\"name\",\n               \"operator\":\"=\",\n               \"value\":\"Deutsche Bank\"\n           }\n       ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{coreuser_url}}/v1/identity/searchby",
+							"host": [
+								"{{coreuser_url}}"
+							],
+							"path": [
+								"v1",
+								"identity",
+								"searchby"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DPM search Vereinsbank",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"criteria\":{\n       \"and\": [\n           {\n               \"field\":\"name\",\n               \"operator\":\"=\",\n               \"value\":\"Vereinsbank\"\n           }\n       ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{coreuser_url}}/v1/identity/searchby",
+							"host": [
+								"{{coreuser_url}}"
+							],
+							"path": [
+								"v1",
+								"identity",
+								"searchby"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Deutsche Bank get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-TENANT-ID",
+								"value": "{{tenant_variable}}",
+								"type": "text"
+							},
+							{
+								"key": "fingerprint",
+								"value": "{{fingerprint}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{middleware_url}}/user/v1/getphonenumber/Deutsche Bank",
+							"host": [
+								"{{middleware_url}}"
+							],
+							"path": [
+								"user",
+								"v1",
+								"getphonenumber",
+								"Deutsche Bank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vereinsbank get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-TENANT-ID",
+								"value": "{{tenant_variable}}",
+								"type": "text"
+							},
+							{
+								"key": "fingerprint",
+								"value": "{{fingerprint}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{middleware_url}}/user/v1/getphonenumber/Vereinsbank",
+							"host": [
+								"{{middleware_url}}"
+							],
+							"path": [
+								"user",
+								"v1",
+								"getphonenumber",
+								"Vereinsbank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost/public/index.php/getphonenumber",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{middleware_url}}/user/v1/getphonenumber/test",
+							"host": [
+								"{{middleware_url}}"
+							],
+							"path": [
+								"user",
+								"v1",
+								"getphonenumber",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "US1- Authentication",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2295cb3-aa21-4cd4-b8a0-22cad89d5561",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"get token\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    pm.expect(jsonData.token).not.to.be.undefined;",
+							"    pm.expect(jsonData.token).not.to.be.null;",
+							"    ",
+							"    pm.environment.set(\"token\", jsonData.token);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "POST",
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
 				"header": [
 					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"key": "X-TENANT-ID",
+						"value": "{{tenant_variable}}"
+					},
+					{
+						"key": "X-USERNAME",
+						"value": "{{flexicieluser_username}}"
+					},
+					{
+						"key": "x-password",
+						"value": "{{flexicieluser_password}}"
+					},
+					{
+						"key": "fingerprint",
+						"value": "{{fingerprint}}"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"criteria\":{\n       \"and\": [\n           {\n               \"field\":\"name\",\n               \"operator\":\"=\",\n               \"value\":\"Connor\"\n           }\n       ]\n    }\n}"
-				},
 				"url": {
-					"raw": "{{coreuser_url}}/v1/identity/searchby",
+					"raw": "{{protocol}}://{{auth-url}}/api/authenticate",
+					"protocol": "{{protocol}}",
 					"host": [
-						"{{coreuser_url}}"
+						"{{auth-url}}"
 					],
 					"path": [
-						"v1",
-						"identity",
-						"searchby"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost/public/index.php/getphonenumber",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{middleware_url}}/user/v1/getphonenumber/test",
-					"host": [
-						"{{middleware_url}}"
-					],
-					"path": [
-						"user",
-						"v1",
-						"getphonenumber",
-						"test"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost/dpm/public/index.php/v1/contactinformation/1",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{coreuser_url}}/v1/contactinformation/1",
-					"host": [
-						"{{coreuser_url}}"
-					],
-					"path": [
-						"v1",
-						"contactinformation",
-						"1"
+						"api",
+						"authenticate"
 					]
 				}
 			},
