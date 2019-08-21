@@ -5,6 +5,7 @@ namespace App\UserContext\Presentation\GetPhoneNumber\Query;
 
 use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneNumberQueryHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 class GetPhoneNumberController extends AbstractController
 {
@@ -34,7 +35,7 @@ class GetPhoneNumberController extends AbstractController
         $this->responseHandler = $responseHandler;
     }
 
-    public function index(string $name)
+    public function index(string $name) : Response
     {
         // 1. Transform Request to Query.
         $query = $this->queryAdapter->getQueryFromRequest($name);
