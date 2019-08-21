@@ -3,8 +3,8 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Services;
 
-use App\UserContext\Application\GetPhoneNumber\Query\GetPhoneQueryResponse;
 use App\UserContext\Domain\Entities\ContactInformationAggregateRoot;
+use App\UserContext\Domain\Entities\UserPhoneCollection;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\PersonName;
 
@@ -31,9 +31,9 @@ class GetPhoneNumberByNameFinder
      * Find the persons and related phones for the given query
      *
      * @param PersonName $name
-     * @return GetPhoneQueryResponse
+     * @return UserPhoneCollection
      */
-    public function find(PersonName $name) :GetPhoneQueryResponse
+    public function find(PersonName $name) :UserPhoneCollection
     {
         $result = [];
         //1. get the identities
@@ -48,6 +48,6 @@ class GetPhoneNumberByNameFinder
             $result[] = $userPhone;
         }
 
-        return new GetPhoneQueryResponse($result);
+        return new UserPhoneCollection($result);
     }
 }

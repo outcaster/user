@@ -3,8 +3,8 @@ declare(strict_types = 1);
 
 namespace App\Tests\UserContext\Domain\Services;
 
-use App\UserContext\Application\FindPersonByName\Query\FindPersonByNameQueryResponse;
-use App\UserContext\Application\FindUserPhonesByPerson\Query\FindUserPhonesByPersonQueryResponse;
+use App\UserContext\Domain\Entities\PersonCollection;
+use App\UserContext\Domain\Entities\PersonPhonesCollection;
 use App\UserContext\Domain\Entities\ContactInformationAggregateRoot;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\PersonId;
@@ -53,11 +53,11 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         // service mocking (used through query bus)
         $personFinder = \Mockery::mock(PersonByNameFinder::class);
         $personFinder->shouldReceive('find')
-            ->andReturn(new FindPersonByNameQueryResponse([$identity]));
+            ->andReturn(new PersonCollection([$identity]));
 
         $userPhonesFinder = \Mockery::mock(UserPhonesByPersonFinder::class);
         $userPhonesFinder->shouldReceive('find')
-            ->andReturn(new FindUserPhonesByPersonQueryResponse([$phoneOne, $phoneTwo, $phoneThree]));
+            ->andReturn(new PersonPhonesCollection([$phoneOne, $phoneTwo, $phoneThree]));
 
         // initialize the finder
         $getPhoneNumberByNameFinder = new GetPhoneNumberByNameFinder(
