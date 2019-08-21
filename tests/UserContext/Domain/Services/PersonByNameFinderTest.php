@@ -3,8 +3,8 @@ declare(strict_types = 1);
 
 namespace App\Tests\UserContext\Domain\Services;
 
-use App\UserContext\Application\FindPersonByName\Query\FindPersonByNameQuery;
 use App\UserContext\Domain\Entities\Person;
+use App\UserContext\Domain\Entities\PersonName;
 use App\UserContext\Domain\Repository\SearchPersonRepository;
 use App\UserContext\Domain\Services\PersonByNameFinder;
 use PHPUnit\Framework\Assert;
@@ -31,7 +31,7 @@ class PersonByNameFinderTest extends TestCase
         $finder = new PersonByNameFinder($identityRepository);
 
         // ---------------- When ----------------
-        $response = $finder->find(new FindPersonByNameQuery('Connor'));
+        $response = $finder->find(new PersonName('Connor'));
 
         // ---------------- Then ----------------
         Assert::assertTrue(sizeof($response->items()) > 0);

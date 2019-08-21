@@ -3,23 +3,23 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Entities;
 
-class PersonId
+final class PersonId
 {
     private $value;
 
     /**
      * PersonId constructor.
-     * @param $value
+     * @param int $value
      */
-    public function __construct($value)
+    public function __construct(int $value)
     {
         $this->value = $value;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getValue()
+    public function getValue() :int
     {
         return $this->value;
     }

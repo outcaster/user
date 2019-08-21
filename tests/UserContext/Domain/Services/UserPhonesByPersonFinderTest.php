@@ -3,8 +3,8 @@ declare(strict_types = 1);
 
 namespace App\Tests\UserContext\Domain\Services;
 
-use App\UserContext\Application\FindUserPhonesByPerson\Query\FindUserPhonesByPersonQuery;
 use App\UserContext\Domain\Entities\Person;
+use App\UserContext\Domain\Entities\PersonId;
 use App\UserContext\Domain\Entities\UserPhone;
 use App\UserContext\Domain\Entities\UserPhoneType;
 use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
@@ -19,9 +19,9 @@ class UserPhonesByPersonFinderTest extends TestCase
     {
         //----------------  Given ----------------
         // mock the entities
-        $person = \Mockery::mock(Person::class);
-        $person->shouldReceive('getId')
-            ->andReturn(1);
+        //$person = \Mockery::mock(Person::class);
+        //$person->shouldReceive('getId')
+        //    ->andReturn(1);
 
         $phoneOne = \Mockery::mock(UserPhone::class);
         $phoneOne->shouldReceive('getType')
@@ -51,7 +51,7 @@ class UserPhonesByPersonFinderTest extends TestCase
         $finder = new UserPhonesByPersonFinder($contactInformationRepository);
 
         // ---------------- When ----------------
-        $response = $finder->find(new FindUserPhonesByPersonQuery($person));
+        $response = $finder->find(new PersonId(1));
 
         // ---------------- Then ----------------
         Assert::assertTrue(sizeof($response->items()) === 3);
