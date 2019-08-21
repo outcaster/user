@@ -5,6 +5,9 @@ namespace App\UserContext\Domain\Entities;
 
 final class PersonId
 {
+    /**
+     * @var int
+     */
     private $value;
 
     /**

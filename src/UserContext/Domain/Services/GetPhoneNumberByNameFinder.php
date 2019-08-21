@@ -30,7 +30,7 @@ class GetPhoneNumberByNameFinder
     /**
      * Find the persons and related phones for the given query
      *
-     * @param string $name
+     * @param PersonName $name
      * @return GetPhoneQueryResponse
      */
     public function find(PersonName $name) :GetPhoneQueryResponse

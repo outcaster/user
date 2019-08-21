@@ -5,6 +5,9 @@ namespace App\UserContext\Domain\Entities;
 
 final class PersonName
 {
+    /**
+     * @var string
+     */
     private $value;
 
     /**
