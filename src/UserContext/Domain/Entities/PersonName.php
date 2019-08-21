@@ -9,17 +9,17 @@ final class PersonName
 
     /**
      * PersonName constructor.
-     * @param $value
+     * @param string $value
      */
-    public function __construct($value)
+    public function __construct(string $value)
     {
         $this->value = $value;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getValue()
+    public function getValue() :string
     {
         return $this->value;
     }
