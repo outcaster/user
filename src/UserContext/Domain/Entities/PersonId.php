@@ -3,27 +3,8 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Entities;
 
-final class PersonId
+use App\Shared\Domain\Entities\IntValueObject;
+
+final class PersonId extends IntValueObject
 {
-    /**
-     * @var int
-     */
-    private $value;
-
-    /**
-     * PersonId constructor.
-     * @param int $value
-     */
-    public function __construct(int $value)
-    {
-        $this->value = $value;
-    }
-
-    /**
-     * @return int
-     */
-    public function getValue() :int
-    {
-        return $this->value;
-    }
 }
