@@ -3,7 +3,9 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Entities;
 
-class Person
+use App\Shared\Domain\Aggregate\AggregateRoot;
+
+class Person extends AggregateRoot
 {
     /**
      * @var PersonId

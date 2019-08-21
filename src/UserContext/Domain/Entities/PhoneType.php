@@ -5,7 +5,7 @@ namespace App\UserContext\Domain\Entities;
 
 use App\UserContext\Domain\Exception\UnknownUserPhoneException;
 
-final class UserPhoneType
+final class PhoneType
 {
     const PERSONAL_NUMBER = 1;
     const WORK_NUMBER = 2;

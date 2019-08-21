@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Repository;
 
-use App\UserContext\Domain\Entities\UserPhone;
+use App\UserContext\Domain\Entities\Phone;
 
 interface SearchUserPhoneNumbersRepository
 {
@@ -13,7 +13,7 @@ interface SearchUserPhoneNumbersRepository
      *
      * @param int $id
      *
-     * @return UserPhone[]
+     * @return Phone[]
      */
     public function search(int $id): array;
 }
