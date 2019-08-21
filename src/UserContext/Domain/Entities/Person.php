@@ -6,39 +6,39 @@ namespace App\UserContext\Domain\Entities;
 class Person
 {
     /**
-     * @var int
+     * @var PersonId
      */
     public $id;
 
     /**
-     * @var string
+     * @var PersonName
      */
     public $name;
 
     /**
      * Person constructor.
      *
-     * @param int $id
-     * @param string $name
+     * @param PersonId $id
+     * @param PersonName $name
      */
-    public function __construct(int $id, string $name)
+    public function __construct(PersonId $id, PersonName $name)
     {
         $this->id = $id;
         $this->name = $name;
     }
 
     /**
-     * @return int
+     * @return PersonId
      */
-    public function getId(): int
+    public function getId(): PersonId
     {
         return $this->id;
     }
 
     /**
-     * @return string
+     * @return PersonName
      */
-    public function getName(): string
+    public function getName(): PersonName
     {
         return $this->name;
     }

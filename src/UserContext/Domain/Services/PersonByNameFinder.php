@@ -3,8 +3,8 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Services;
 
-use App\UserContext\Application\FindPersonByName\Query\FindPersonByNameQuery;
 use App\UserContext\Application\FindPersonByName\Query\FindPersonByNameQueryResponse;
+use App\UserContext\Domain\Entities\PersonName;
 use App\UserContext\Domain\Repository\SearchPersonRepository;
 
 class PersonByNameFinder
@@ -23,11 +23,11 @@ class PersonByNameFinder
 
     /**
      * Find the person with the given name
-     * @param FindPersonByNameQuery $query
+     * @param PersonName $name
      * @return FindPersonByNameQueryResponse|null
      */
-    public function find(FindPersonByNameQuery $query) :?FindPersonByNameQueryResponse
+    public function find(PersonName $name) :?FindPersonByNameQueryResponse
     {
-        return new FindPersonByNameQueryResponse($this->searchPersonRepository->search($query->getName()));
+        return new FindPersonByNameQueryResponse($this->searchPersonRepository->search($name->getValue()));
     }
 }
