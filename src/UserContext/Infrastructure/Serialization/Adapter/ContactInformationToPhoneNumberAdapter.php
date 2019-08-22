@@ -20,8 +20,8 @@ class ContactInformationToPhoneNumberAdapter
         $result = [];
         /** @var ContactInformation[] $contacts */
         foreach ($searchResponseWrapper->getResults() as $contact) {
-            $phoneNumber = (!empty($contact->getContactInformationIdentity())
-                && !empty($contact->getContactInformationIdentity()->getData())) ?
+            $phoneNumber = ($contact->getContactInformationIdentity() <> null
+                && $contact->getContactInformationIdentity()->getData() <> null) ?
                 $contact->getContactInformationIdentity()->getData() : '';
             try {
                 $userPhone = new UserPhone(

@@ -20,10 +20,10 @@ class IdentityToPersonAdapter
         $result = [];
         /** @var Identity $identity */
         foreach ($identitySearchResponseWrapper->getResults() as $identity) {
-            $fullName = !empty($identity->getIdentity()->getFirstName()) ?
+            $fullName = $identity->getIdentity()->getFirstName() <> null ?
                 $identity->getIdentity()->getFirstName() : '';
-            if (!empty($identity->getIdentity()->getName())) {
-                $fullName .= !empty($fullName) ? ' ' . $identity->getIdentity()->getName() :
+            if ($identity->getIdentity()->getName() <> null) {
+                $fullName .= $fullName <> null ? ' ' . $identity->getIdentity()->getName() :
                     $identity->getIdentity()->getName();
             }
 
