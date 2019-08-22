@@ -10,7 +10,7 @@ class Phone extends AggregateRoot
     /** @var PhoneType */
     public $type;
 
-    /** @var string */
+    /** @var PhoneNumber */
     public $phoneNumber;
 
     /**
