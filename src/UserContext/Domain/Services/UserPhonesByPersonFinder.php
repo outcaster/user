@@ -3,34 +3,33 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Services;
 
-use App\UserContext\Application\FindUserPhonesByPerson\Query\FindUserPhonesByPersonQueryResponse;
-use App\UserContext\Domain\Entities\Person;
+use App\UserContext\Domain\Entities\PhonesCollection;
 use App\UserContext\Domain\Entities\PersonId;
 use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
 
 class UserPhonesByPersonFinder
 {
     /** @var SearchUserPhoneNumbersRepository */
-    private $searchPersonRepository;
+    private $repository;
 
     /**
      * PersonByNameFinder constructor.
-     * @param SearchUserPhoneNumbersRepository $searchPersonRepository
+     * @param SearchUserPhoneNumbersRepository $repository
      */
-    public function __construct(SearchUserPhoneNumbersRepository $searchPersonRepository)
+    public function __construct(SearchUserPhoneNumbersRepository $repository)
     {
-        $this->searchPersonRepository = $searchPersonRepository;
+        $this->repository = $repository;
     }
 
     /**
      * Find the user phones by the person
      * @param PersonId $personId
-     * @return FindUserPhonesByPersonQueryResponse|null
+     * @return PersonPhonesCollection|null
      */
-    public function find(PersonId $personId) :?FindUserPhonesByPersonQueryResponse
+    public function find(PersonId $personId) :?PhonesCollection
     {
-        return new FindUserPhonesByPersonQueryResponse(
-            $this->searchPersonRepository->search(
+        return new PhonesCollection(
+            $this->repository->search(
                 $personId->getValue()
             )
         );

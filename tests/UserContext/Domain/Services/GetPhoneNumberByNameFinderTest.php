@@ -3,9 +3,9 @@ declare(strict_types = 1);
 
 namespace App\Tests\UserContext\Domain\Services;
 
-use App\UserContext\Application\FindPersonByName\Query\FindPersonByNameQueryResponse;
-use App\UserContext\Application\FindUserPhonesByPerson\Query\FindUserPhonesByPersonQueryResponse;
-use App\UserContext\Domain\Entities\ContactInformationAggregateRoot;
+use App\UserContext\Domain\Entities\PersonCollection;
+use App\UserContext\Domain\Entities\PhonesCollection;
+use App\UserContext\Domain\Entities\PersonPhone;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\PersonId;
 use App\UserContext\Domain\Entities\PersonName;
@@ -53,11 +53,11 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         // service mocking (used through query bus)
         $personFinder = \Mockery::mock(PersonByNameFinder::class);
         $personFinder->shouldReceive('find')
-            ->andReturn(new FindPersonByNameQueryResponse([$identity]));
+            ->andReturn(new PersonCollection([$identity]));
 
         $userPhonesFinder = \Mockery::mock(UserPhonesByPersonFinder::class);
         $userPhonesFinder->shouldReceive('find')
-            ->andReturn(new FindUserPhonesByPersonQueryResponse([$phoneOne, $phoneTwo, $phoneThree]));
+            ->andReturn(new PhonesCollection([$phoneOne, $phoneTwo, $phoneThree]));
 
         // initialize the finder
         $getPhoneNumberByNameFinder = new GetPhoneNumberByNameFinder(
@@ -71,10 +71,10 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         // ---------------- Then ----------------
         Assert::assertTrue(sizeof($response->items()) > 0);
         Assert::assertSame([
-            ContactInformationAggregateRoot::PERSON_ID => 1,
-            ContactInformationAggregateRoot::PERSON_NAME => 'Lucas',
+            PersonPhone::PERSON_ID => 1,
+            PersonPhone::PERSON_NAME => 'Lucas',
         ], $response->items()[0]->personInfo);
-        Assert::assertEquals($identity->getId()->getValue(), $response->items()[0]->personInfo[ContactInformationAggregateRoot::PERSON_ID]);
+        Assert::assertEquals($identity->getId()->getValue(), $response->items()[0]->personInfo[PersonPhone::PERSON_ID]);
         Assert::assertSame([
             PhoneType::PERSONAL_NUMBER_TEXT => $phoneOne->getPhoneNumber()->getValue(),
             PhoneType::WORK_NUMBER_TEXT => $phoneTwo->getPhoneNumber()->getValue(),

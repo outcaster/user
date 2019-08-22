@@ -3,7 +3,9 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Entities;
 
-final class ContactInformationAggregateRoot
+use App\Shared\Domain\Aggregate\AggregateRoot;
+
+final class PersonPhone extends AggregateRoot
 {
     const PERSON_ID   = 'id';
     const PERSON_NAME = 'name';
