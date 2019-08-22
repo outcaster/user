@@ -10,6 +10,6 @@ class PersonPhonesCollection extends CollectionResponse
 {
     protected function type(): string
     {
-        return UserPhone::class;
+        return PersonPhone::class;
     }
 }

@@ -3,8 +3,8 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Services;
 
-use App\UserContext\Domain\Entities\ContactInformationAggregateRoot;
-use App\UserContext\Domain\Entities\UserPhoneCollection;
+use App\UserContext\Domain\Entities\PersonPhone;
+use App\UserContext\Domain\Entities\PersonPhonesCollection;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\PersonName;
 
@@ -31,9 +31,9 @@ class GetPhoneNumberByNameFinder
      * Find the persons and related phones for the given query
      *
      * @param PersonName $name
-     * @return UserPhoneCollection
+     * @return PersonPhonesCollection
      */
-    public function find(PersonName $name) :UserPhoneCollection
+    public function find(PersonName $name) :PersonPhonesCollection
     {
         $result = [];
         //1. get the identities
@@ -44,10 +44,10 @@ class GetPhoneNumberByNameFinder
         foreach ($people as $person) {
             $contactInfoArray = $this->userPhonesFinder->find($person->getId());
             //3. build the user telephone object
-            $userPhone = new ContactInformationAggregateRoot($person, $contactInfoArray->items());
+            $userPhone = new PersonPhone($person, $contactInfoArray->items());
             $result[] = $userPhone;
         }
 
-        return new UserPhoneCollection($result);
+        return new PersonPhonesCollection($result);
     }
 }

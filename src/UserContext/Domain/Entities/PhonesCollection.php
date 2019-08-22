@@ -5,10 +5,10 @@ namespace App\UserContext\Domain\Entities;
 
 use App\Shared\Domain\Query\CollectionResponse;
 
-class UserPhoneCollection extends CollectionResponse
+class PhonesCollection extends CollectionResponse
 {
     protected function type(): string
     {
-        return ContactInformationAggregateRoot::class;
+        return Phone::class;
     }
 }
