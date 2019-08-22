@@ -11,7 +11,7 @@ final class ContactInformationAggregateRoot
     /** @var Person */
     private $person;
 
-    /** @var UserPhone[] */
+    /** @var Phone[] */
     private $userPhones;
 
     /** @var array */
@@ -23,7 +23,7 @@ final class ContactInformationAggregateRoot
     /**
      * ContactInformationAggregateRoot constructor.
      * @param Person $person
-     * @param UserPhone[] $userPhones
+     * @param Phone[] $userPhones
      */
     public function __construct(Person $person, array $userPhones)
     {
@@ -39,7 +39,7 @@ final class ContactInformationAggregateRoot
     protected function buildPhoneNumbers(): void
     {
         foreach ($this->userPhones as $userPhone) {
-            $this->phoneNumbers[$userPhone->getType()->getContactName()] = $userPhone->getPhoneNumber();
+            $this->phoneNumbers[$userPhone->getType()->getContactName()] = $userPhone->getPhoneNumber()->getValue();
         }
     }
 

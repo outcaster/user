@@ -9,8 +9,9 @@ use App\UserContext\Domain\Entities\ContactInformationAggregateRoot;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\PersonId;
 use App\UserContext\Domain\Entities\PersonName;
-use App\UserContext\Domain\Entities\UserPhone;
-use App\UserContext\Domain\Entities\UserPhoneType;
+use App\UserContext\Domain\Entities\Phone;
+use App\UserContext\Domain\Entities\PhoneNumber;
+use App\UserContext\Domain\Entities\PhoneType;
 use App\UserContext\Domain\Services\GetPhoneNumberByNameFinder;
 use App\UserContext\Domain\Services\PersonByNameFinder;
 use App\UserContext\Domain\Services\UserPhonesByPersonFinder;
@@ -31,23 +32,23 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         $identity->shouldReceive('getName')
             ->andReturn(new PersonName('Lucas'));
 
-        $phoneOne = \Mockery::mock(UserPhone::class);
+        $phoneOne = \Mockery::mock(Phone::class);
         $phoneOne->shouldReceive('getType')
-            ->andReturn(new UserPhoneType(UserPhoneType::PERSONAL_NUMBER));
+            ->andReturn(new PhoneType(PhoneType::PERSONAL_NUMBER));
         $phoneOne->shouldReceive('getPhoneNumber')
-            ->andReturn('55555555');
+            ->andReturn(new PhoneNumber('55555555'));
 
-        $phoneTwo = \Mockery::mock(UserPhone::class);
+        $phoneTwo = \Mockery::mock(Phone::class);
         $phoneTwo->shouldReceive('getType')
-            ->andReturn(new UserPhoneType(UserPhoneType::WORK_NUMBER));
+            ->andReturn(new PhoneType(PhoneType::WORK_NUMBER));
         $phoneTwo->shouldReceive('getPhoneNumber')
-            ->andReturn('66666666');
+            ->andReturn(new PhoneNumber('66666666'));
 
-        $phoneThree = \Mockery::mock(UserPhone::class);
+        $phoneThree = \Mockery::mock(Phone::class);
         $phoneThree->shouldReceive('getType')
-            ->andReturn(new UserPhoneType(UserPhoneType::MOBILE_NUMBER));
+            ->andReturn(new PhoneType(PhoneType::MOBILE_NUMBER));
         $phoneThree->shouldReceive('getPhoneNumber')
-            ->andReturn('77777777');
+            ->andReturn(new PhoneNumber('77777777'));
 
         // service mocking (used through query bus)
         $personFinder = \Mockery::mock(PersonByNameFinder::class);
@@ -75,9 +76,9 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         ], $response->items()[0]->personInfo);
         Assert::assertEquals($identity->getId()->getValue(), $response->items()[0]->personInfo[ContactInformationAggregateRoot::PERSON_ID]);
         Assert::assertSame([
-            UserPhoneType::PERSONAL_NUMBER_TEXT => $phoneOne->getPhoneNumber(),
-            UserPhoneType::WORK_NUMBER_TEXT => $phoneTwo->getPhoneNumber(),
-            UserPhoneType::MOBILE_NUMBER_TEXT => $phoneThree->getPhoneNumber(),
+            PhoneType::PERSONAL_NUMBER_TEXT => $phoneOne->getPhoneNumber()->getValue(),
+            PhoneType::WORK_NUMBER_TEXT => $phoneTwo->getPhoneNumber()->getValue(),
+            PhoneType::MOBILE_NUMBER_TEXT => $phoneThree->getPhoneNumber()->getValue(),
         ], $response->items()[0]->phoneNumbers);
     }
 
