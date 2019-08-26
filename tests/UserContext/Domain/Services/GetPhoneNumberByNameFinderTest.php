@@ -3,11 +3,10 @@ declare(strict_types = 1);
 
 namespace App\Tests\UserContext\Domain\Services;
 
+use App\Tests\UserContext\Domain\Entities\PersonMother;
 use App\UserContext\Domain\Entities\PersonCollection;
 use App\UserContext\Domain\Entities\PhonesCollection;
 use App\UserContext\Domain\Entities\PersonPhone;
-use App\UserContext\Domain\Entities\Person;
-use App\UserContext\Domain\Entities\PersonId;
 use App\UserContext\Domain\Entities\PersonName;
 use App\UserContext\Domain\Entities\Phone;
 use App\UserContext\Domain\Entities\PhoneNumber;
@@ -26,11 +25,7 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         // ---------------- Given ----------------
 
         // mock the entities
-        $identity = \Mockery::mock(Person::class);
-        $identity->shouldReceive('getId')
-                ->andReturn(new PersonId(1));
-        $identity->shouldReceive('getName')
-            ->andReturn(new PersonName('Lucas'));
+        $identity = PersonMother::createRandomPerson();
 
         $phoneOne = \Mockery::mock(Phone::class);
         $phoneOne->shouldReceive('getType')
@@ -66,13 +61,13 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         );
 
         // ---------------- When ----------------
-        $response = $getPhoneNumberByNameFinder->find(new PersonName('Connor'));
+        $response = $getPhoneNumberByNameFinder->find(new PersonName($identity->getName()->getValue()));
 
         // ---------------- Then ----------------
         Assert::assertTrue(sizeof($response->items()) > 0);
         Assert::assertSame([
-            PersonPhone::PERSON_ID => 1,
-            PersonPhone::PERSON_NAME => 'Lucas',
+            PersonPhone::PERSON_ID => $identity->getId()->getValue(),
+            PersonPhone::PERSON_NAME => $identity->getName()->getValue(),
         ], $response->items()[0]->personInfo);
         Assert::assertEquals($identity->getId()->getValue(), $response->items()[0]->personInfo[PersonPhone::PERSON_ID]);
         Assert::assertSame([

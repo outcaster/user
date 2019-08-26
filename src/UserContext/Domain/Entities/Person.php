@@ -5,7 +5,7 @@ namespace App\UserContext\Domain\Entities;
 
 use App\Shared\Domain\Aggregate\AggregateRoot;
 
-class Person extends AggregateRoot
+final class Person extends AggregateRoot
 {
     /**
      * @var PersonId

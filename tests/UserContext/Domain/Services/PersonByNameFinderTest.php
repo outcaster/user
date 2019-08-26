@@ -3,11 +3,11 @@ declare(strict_types = 1);
 
 namespace App\Tests\UserContext\Domain\Services;
 
+use App\Tests\UserContext\Domain\Entities\PersonMother;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\PersonName;
 use App\UserContext\Domain\Repository\SearchPersonRepository;
 use App\UserContext\Domain\Services\PersonByNameFinder;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
 class PersonByNameFinderTest extends TestCase
@@ -17,30 +17,35 @@ class PersonByNameFinderTest extends TestCase
     {
         // ---------------- Given ----------------
         // mock the entities
-        $person = \Mockery::mock(Person::class);
-        $person->shouldReceive('getId')
-                ->andReturn(1);
+        $person = PersonMother::createRandomPerson();
 
         // repository mocking
-        $identityRepository = \Mockery::mock(SearchPersonRepository::class);
-        $identityRepository->shouldReceive('search')
-            ->with('Connor')
-            ->andReturn([$person]);
+        $repository = $this->repository($person->getName()->getValue(), $person);
 
         // initialize the finder
-        $finder = new PersonByNameFinder($identityRepository);
+        $finder = new PersonByNameFinder($repository);
 
         // ---------------- When ----------------
-        $response = $finder->find(new PersonName('Connor'));
+        $response = $finder->find(new PersonName($person->getName()->getValue()));
 
         // ---------------- Then ----------------
-        Assert::assertTrue(sizeof($response->items()) > 0);
-        Assert::assertSame($person, $response->items()[0]);
-        Assert::assertEquals($person->id, $response->items()[0]->id);
+        $this->assertTrue(sizeof($response->items()) > 0);
+        $this->assertSame($person, $response->items()[0]);
+        $this->assertEquals($person->id, $response->items()[0]->id);
     }
 
     public function tearDown(): void
     {
         \Mockery::close();
+    }
+
+    protected function repository(string $name, Person $person): SearchPersonRepository
+    {
+        $identityRepository = \Mockery::mock(SearchPersonRepository::class);
+        $identityRepository->shouldReceive('search')
+            ->with($name)
+            ->andReturn([$person]);
+
+        return $identityRepository;
     }
 }
