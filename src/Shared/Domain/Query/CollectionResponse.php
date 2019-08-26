@@ -69,8 +69,8 @@ abstract class CollectionResponse implements Countable, IteratorAggregate
     /**
      * Check if an item is an instance of $class
      *
-     * @param $class
-     * @param $item
+     * @param string $class
+     * @param mixed $item
      *
      * @throws InvalidArgumentException if the item is not $class type
      */
