@@ -24,7 +24,7 @@ class UserPhonesByPersonFinder
     /**
      * Find the user phones by the person
      * @param PersonId $personId
-     * @return PersonPhonesCollection|null
+     * @return PhonesCollection|null
      */
     public function find(PersonId $personId) :?PhonesCollection
     {

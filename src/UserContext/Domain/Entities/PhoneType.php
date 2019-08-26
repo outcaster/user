@@ -22,7 +22,7 @@ final class PhoneType
 
     /**
      * ContactInformationType constructor.
-     * @param $contactId
+     * @param int $contactId
      */
     public function __construct(int $contactId)
     {

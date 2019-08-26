@@ -96,7 +96,7 @@ class GuzzleApiClient implements ApiClient
     /**
      * Get request headers for the request
      *
-     * @return mixed
+     * @return array
      */
     protected function getHeaders(): array
     {

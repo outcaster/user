@@ -28,7 +28,7 @@ class Identity
     }
 
     /**
-     * @param integer id
+     * @param integer $id
      * @return void
      */
     public function setId(int $id) :void
