@@ -71,9 +71,9 @@ class IdentityResponseMother
             self::OBJECT => [
                 "status"     => "success",
                 "code"       => 200,
-                "total_rows" => 1,
+                "total_rows" => $amount,
                 "start"      => 0,
-                "count"      => 1,
+                "count"      => $amount,
                 "results"    => $identities,
             ],
             self::EXPECTED => $values,
