@@ -13,7 +13,7 @@ __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __root="$(cd "$(dirname "${__dir}")" && pwd)"
 
 # Set the URL registry where the docker image to based on is stored.
-REGISTRY="nicodocker91/phpunit:8.0-php7.2"
+REGISTRY="nicodocker91/phpunit:8.2-php7.2"
 
 # Set dynamic options for the command:
 # - Enable the --tty option if there is a tty.
@@ -24,15 +24,8 @@ QA_BUILD_FOLDER=${QA_BUILD_FOLDER:-${__root}/data/build}
 REPORTS_FOLDER="${QA_BUILD_FOLDER}/user/$(date +'%Y%m%d0000')/logs/phpunit"
 mkdir -p ${REPORTS_FOLDER} 2>/dev/null
 
-# As phpunit requires composer to be ran, check its existance before running the docker command.
-if [ ! -f ${__root}/www/vendor/autoload.php ]; then
-    echo "# Composer has not been ran while it is required. Running 'cmd/composer install' command..."
-    cmd/composer install
-fi
-if [ ! -f ${__root}/vendor/autoload.php ]; then
-    echo "# Composer install has failed. Cannot run phpunit."
-    exit 2
-fi
+# Phpunit requires composer install to be ran.
+cmd/composer install
 
 # Run the docker command.
 docker run --rm ${option_tty} \
@@ -40,14 +33,13 @@ docker run --rm ${option_tty} \
     --volume ${__root}:/data/www \
     --volume ${REPORTS_FOLDER}:${REPORTS_FOLDER} \
     ${REGISTRY} \
-        --bootstrap=vendor/autoload.php \
+        --bootstrap=www/vendor/autoload.php \
         -d memory_limit=-1 \
         --log-junit ${REPORTS_FOLDER}/phpunit-unit.xml \
         --cache-result \
         --cache-result-file ${REPORTS_FOLDER}/cache/.phpunit.result.cache \
         --coverage-clover ${REPORTS_FOLDER}/coverage-clover.xml \
         --coverage-html ${REPORTS_FOLDER}/coverage-html/ \
-        --coverage-text \
         --colors=never \
-        --whitelist=src/UserContext \
-        tests/
+        --whitelist=www/src/UserContext \
+        www/src/Tests/

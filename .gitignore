@@ -1,11 +1,11 @@
 ###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/.env.test
-/public/bundles/
-/var/
-/vendor/
+/www/.env.local
+/www/.env.local.php
+/www/.env.*.local
+/www/.env.test
+/www/public/bundles/
+/www/var/
+/www/vendor/
 ###< symfony/framework-bundle ###
 
 ###> friends-of-behat/symfony-extension ###
@@ -27,7 +27,7 @@
 ###> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache
-/phpunit.xml
-/phpunit.xml.dist
-/bin/phpunit
+phpunit.xml
+phpunit.xml.dist
+/www/bin/phpunit
 ###< symfony/phpunit-bridge ###

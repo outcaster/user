@@ -32,6 +32,6 @@ docker run --rm ${option_tty} \
     ${REGISTRY} \
         --min-tokens=70 \
         --min-lines=5 \
-        --regexps-exclude='#(^|.*/)(Resources|Tests?|Entity|Features|DataFixtures)/.*#,#Bundle\.php$#' \
+        --regexps-exclude='#(^|.*/)(Tests)/.*#,#InfrastructureBundle/Kernel\.php$#' \
         --log-pmd ${REPORTS_FOLDER}/report.xml \
-        src | grep -Eo '[0-9.]+% duplicated lines out' | grep -Eo '[0-9.]+%' > ${REPORTS_FOLDER}/percentage-report.txt
+        www/src/UserContext | grep -Eo '[0-9.]+% duplicated lines out' | grep -Eo '[0-9.]+%' > ${REPORTS_FOLDER}/percentage-report.txt
