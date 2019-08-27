@@ -12,7 +12,10 @@ class IdentityResponseMother
     const IDENTITY_ID = 'IDENTITY_ID';
     const NAME = 'NAME';
 
-    public static function create()
+    /**
+     * @return array
+     */
+    public static function create() :array
     {
         $faker = Factory::create();
         $identities = [];
@@ -74,7 +77,10 @@ class IdentityResponseMother
         ];
     }
 
-    public static function random()
+    /**
+     * @return array
+     */
+    public static function random() :array
     {
         return self::create();
     }
