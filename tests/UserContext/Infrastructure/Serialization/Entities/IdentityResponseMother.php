@@ -11,6 +11,7 @@ class IdentityResponseMother
     const EXPECTED = 'EXPECTED';
     const IDENTITY_ID = 'IDENTITY_ID';
     const NAME = 'NAME';
+    const FIRST_NAME = 'FIRST_NAME';
 
     /**
      * @return array
@@ -24,9 +25,11 @@ class IdentityResponseMother
 
         for ($index = 0; $index < $amount; $index++) {
             $identityId = $faker->unique()->randomDigitNotNull();
-            $name = $faker->name();
+            $firstName = $faker->firstName();
+            $name = $faker->lastName();
             $values[$index] = [
                 self::IDENTITY_ID => $identityId,
+                self::FIRST_NAME => $firstName,
                 self::NAME => $name,
             ];
 
@@ -41,7 +44,7 @@ class IdentityResponseMother
                     "name" => $name,
                     "maiden_name" => null,
                     "middle_name" => null,
-                    "first_name" => null,
+                    "first_name" => $firstName,
                     "birth_date" => null,
                     "birth_place" => null,
                     "import_id" => 0,

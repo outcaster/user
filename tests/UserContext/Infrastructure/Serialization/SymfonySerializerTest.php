@@ -36,6 +36,10 @@ class SymfonySerializerTest extends TestCase
                 $expected[$index][IdentityResponseMother::NAME],
                 $identity->getIdentity()->getName()
             );
+            Assert::assertEquals(
+                $expected[$index][IdentityResponseMother::FIRST_NAME],
+                $identity->getIdentity()->getFirstName()
+            );
         }
     }
 }
