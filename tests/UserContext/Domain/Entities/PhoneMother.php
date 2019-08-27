@@ -9,28 +9,25 @@ use App\UserContext\Domain\Entities\PhoneType;
 
 final class PhoneMother
 {
-    /**
-     * @param PhoneNumber $number
-     * @return Phone
-     */
-    static function createPersonalNumber(PhoneNumber $number): Phone
-    {
-        return new Phone(new PhoneType(PhoneType::PERSONAL_NUMBER), $number);
-    }
-    /**
-     * @return Phone
-     */
-    static function createRandomPersonalNumber(): Phone
-    {
-        return self::createPersonalNumber(new PhoneNumber('6666666'));
-    }
-    /**
-     * @return Phone
-     */
     static function createRandomNumber(): Phone
     {
-        $type = PhoneType::PERSONAL_NUMBER;
-        $number = '66666666';
+        $type = random_int(PhoneType::PERSONAL_NUMBER, PhoneType::MOBILE_NUMBER);
+        $number = random_int(0, 999999999).'';
         return new Phone(new PhoneType($type), new PhoneNumber($number));
+    }
+    static function createRandomPersonalNumber(): Phone
+    {
+        $number = random_int(0, 999999999).'';
+        return new Phone(new PhoneType(PhoneType::PERSONAL_NUMBER), new PhoneNumber($number));
+    }
+    static function createRandomWorkNumber(): Phone
+    {
+        $number = random_int(0, 999999999).'';
+        return new Phone(new PhoneType(PhoneType::WORK_NUMBER), new PhoneNumber($number));
+    }
+    static function createRandomMobileNumber(): Phone
+    {
+        $number = random_int(0, 999999999).'';
+        return new Phone(new PhoneType(PhoneType::MOBILE_NUMBER), new PhoneNumber($number));
     }
 }

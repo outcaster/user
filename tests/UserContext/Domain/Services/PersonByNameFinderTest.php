@@ -29,9 +29,9 @@ class PersonByNameFinderTest extends TestCase
         $response = $finder->find(new PersonName($person->getName()->getValue()));
 
         // ---------------- Then ----------------
-        $this->assertTrue(sizeof($response->items()) > 0);
-        $this->assertSame($person, $response->items()[0]);
-        $this->assertEquals($person->id, $response->items()[0]->id);
+        self::assertTrue(sizeof($response->items()) > 0);
+        self::assertSame($person, $response->items()[0]);
+        self::assertEquals($person->id, $response->items()[0]->id);
     }
 
     public function tearDown(): void
@@ -39,6 +39,12 @@ class PersonByNameFinderTest extends TestCase
         \Mockery::close();
     }
 
+    /**
+     * Generate a mocked repository with one person identified by the given name
+     * @param string $name
+     * @param Person $person
+     * @return SearchPersonRepository
+     */
     protected function repository(string $name, Person $person): SearchPersonRepository
     {
         $identityRepository = \Mockery::mock(SearchPersonRepository::class);

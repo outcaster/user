@@ -19,8 +19,8 @@ final class PhoneTypeTest extends TestCase
         $type = $person->getType();
 
         // ---------------- Then ----------------
-        $this->assertEquals($type->__toString(), $type->getContactName());
-        $this->assertContains($type->__toString(), PhoneType::KNOWN_PHONE_TYPES);
+        self::assertEquals($type->__toString(), $type->getContactName());
+        self::assertContains($type->__toString(), PhoneType::KNOWN_PHONE_TYPES);
     }
 
     /** @test */
@@ -33,6 +33,6 @@ final class PhoneTypeTest extends TestCase
         $phoneType = new PhoneType(random_int(PhoneType::WORK_NUMBER + 1, PHP_INT_MAX));
 
         // ---------------- Then ----------------
-        $this->fail('This line shouldn\'t be executed ever. Incorrect phone type: ' . $phoneType);
+        self::fail('This line shouldn\'t be executed ever. Incorrect phone type: ' . $phoneType);
     }
 }
