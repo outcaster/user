@@ -1,0 +1,25 @@
+default:
+    suites:
+        default:
+            contexts:
+                - App\Tests\Behat\DemoContext
+                - App\Tests\Behat\ApiContext
+                - behatch:context:browser
+                - behatch:context:debug
+                - behatch:context:system
+                - behatch:context:json
+                - behatch:context:table
+                - behatch:context:rest
+                - behatch:context:xml
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension: ~
+        Behat\MinkExtension:
+            sessions:
+                symfony:
+                    symfony: ~
+            base_url: 'http://localhost'
+        Behatch\Extension: ~
+        Imbo\BehatApiExtension:
+            apiClient:
+                base_uri: 'http://localhost/user/public/index.php'
