@@ -24,4 +24,4 @@ docker run --rm ${option_tty} \
     --user $(id -u):$(id -g) \
     --volume ${__root}:/data/www \
     ${REGISTRY} \
-        --lint src
+        --lint www/src

@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+# Author: Nicolas Giraud <nicolas.giraud.dev@gmail.com>
+# Copyright (c) 2017
+# License: MIT
+
+set -o errexit  # Make your script exit when a command fails.
+set -o pipefail # Catch 'xxx' fails for command 'xxx|yyy'.
+set -o nounset  # Exit script when using unset variable.
+#set -o xtrace   # Debug mode. Uncomment to activate.
+
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+
+# Name of the service.
+NEWMAN_SERVICE_NAME="versions"
+
+# Manage environment system. Only one of the following is expected: "local", "dil", "dev", "dtpp". Default is "local".
+ENVIRONMENT_STACK=${1:-local}
+[[ "local dil dev dtpp" =~ (^|[[:space:]])${ENVIRONMENT_STACK}($|[[:space:]]) ]] || (echo "Bad environment defined. Please set environment to 'local', 'dil', 'dev' or 'dtpp'." && exit 1)
+
+# Manage the suffix branch name. only needed when environment is not "local".
+[[ "local" != ${ENVIRONMENT_STACK} ]] && ENVIRONMENT_BRANCH="${BRANCH_NAME:-develop}" || ENVIRONMENT_BRANCH=""
+
+[[ "local" = ${ENVIRONMENT_STACK} ]] && EXTERNAL_HOST="dildevelop-${NEWMAN_SERVICE_NAME}.aareon.dev"
+[[ "dil" = ${ENVIRONMENT_STACK} ]] && EXTERNAL_HOST="${NEWMAN_SERVICE_NAME}-${ENVIRONMENT_BRANCH}.dil.aareonit.fr"
+[[ "dev" = ${ENVIRONMENT_STACK} ]] && EXTERNAL_HOST="${NEWMAN_SERVICE_NAME}-${ENVIRONMENT_BRANCH}.dev.aareonit.fr"
+[[ "dtpp" = ${ENVIRONMENT_STACK} ]] && EXTERNAL_HOST="${NEWMAN_SERVICE_NAME}-${ENVIRONMENT_BRANCH}.test.aareonit.fr"
+
+echo "Testing access to http://${EXTERNAL_HOST}/"
+
+# Get the IP address docker must know to make the call in the given host detected above, if service accessible.
+CURL_TEST_RESPONSE=$(curl -o /dev/null --silent --head --write-out '%{http_code} %{remote_ip}' http://${EXTERNAL_HOST}/)
+CURL_CODE_RETURN=$(echo ${CURL_TEST_RESPONSE} | cut -d ' ' -f1)
+
+# If the HTTP status code is not 204 (No Content), it means the HTTP response is not correct so the service is not up. Then, stop here.
+[[ "204" != ${CURL_CODE_RETURN} ]] && echo "Failure: service ${NEWMAN_SERVICE_NAME} is not up. Impossible to call it. Aborting..." && exit 127
+
+# Now, get the remote IP address to link when adding the host in Docker.
+DOCKER_IP_REACH=$(echo ${CURL_TEST_RESPONSE} | cut -d ' ' -f2)
+
+echo "IP address of remote server to call is: ${DOCKER_IP_REACH}"
+
+# Set the URL registry where the docker image to based on is stored.
+REGISTRY="postman/newman:alpine"
+
+# Set dynamic options for the command:
+# - Enable the --tty option if there is a tty.
+option_tty=$(if [ "not a tty" = "$(tty)" ]; then echo ""; else echo " --tty "; fi)
+
+# Create or replace the environment file to use.
+rm -rf ${__root}/testing/functional/newman/env/env.json 2>/dev/null
+sed "s/__ENV_BRANCH__/${ENVIRONMENT_BRANCH}/g" ${__root}/testing/functional/newman/env/${ENVIRONMENT_STACK}.json > ${__root}/testing/functional/newman/env/env.json
+
+QA_BUILD_FOLDER=${QA_BUILD_FOLDER:-${__root}/data/build}
+REPORTS_FOLDER="${QA_BUILD_FOLDER}/${NEWMAN_SERVICE_NAME}/$(date +'%Y%m%d0000')/logs/newman"
+mkdir -p ${REPORTS_FOLDER} 2>/dev/null
+
+# Run the docker command.
+docker run --rm ${option_tty} \
+    --user $(id -u):$(id -g) \
+    --volume /etc/timezone:/etc/timezone:ro \
+    --volume /etc/localtime:/etc/localtime:ro \
+    --volume ${__root}/testing/functional/newman:/etc/newman \
+    --volume ${REPORTS_FOLDER}:/tmp \
+    --add-host ${EXTERNAL_HOST}:${DOCKER_IP_REACH} \
+    ${REGISTRY} \
+        run ${NEWMAN_SERVICE_NAME}.json \
+        --environment="env/env.json" \
+        --reporters="junit,cli" \
+        --reporter-junit-export="/tmp/newman-report.xml"
