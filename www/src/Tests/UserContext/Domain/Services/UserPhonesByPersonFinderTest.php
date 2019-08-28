@@ -3,13 +3,10 @@ declare(strict_types = 1);
 
 namespace App\Tests\UserContext\Domain\Services;
 
-use App\UserContext\Domain\Entities\Person;
+use App\Tests\UserContext\Domain\Entities\PhoneMother;
 use App\UserContext\Domain\Entities\PersonId;
-use App\UserContext\Domain\Entities\Phone;
-use App\UserContext\Domain\Entities\PhoneType;
 use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
 use App\UserContext\Domain\Services\UserPhonesByPersonFinder;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
 class UserPhonesByPersonFinderTest extends TestCase
@@ -18,28 +15,9 @@ class UserPhonesByPersonFinderTest extends TestCase
     public function itShouldFindUserPhones(): void
     {
         //----------------  Given ----------------
-        // mock the entities
-        //$person = \Mockery::mock(Person::class);
-        //$person->shouldReceive('getId')
-        //    ->andReturn(1);
-
-        $phoneOne = \Mockery::mock(Phone::class);
-        $phoneOne->shouldReceive('getType')
-            ->andReturn(new PhoneType(PhoneType::PERSONAL_NUMBER));
-        $phoneOne->shouldReceive('getPhoneNumber')
-            ->andReturn('55555555');
-
-        $phoneTwo = \Mockery::mock(Phone::class);
-        $phoneTwo->shouldReceive('getType')
-            ->andReturn(new PhoneType(PhoneType::WORK_NUMBER));
-        $phoneTwo->shouldReceive('getPhoneNumber')
-            ->andReturn('66666666');
-
-        $phoneThree = \Mockery::mock(Phone::class);
-        $phoneThree->shouldReceive('getType')
-            ->andReturn(new PhoneType(PhoneType::MOBILE_NUMBER));
-        $phoneThree->shouldReceive('getPhoneNumber')
-            ->andReturn('77777777');
+        $phoneOne = PhoneMother::createRandomNumber();
+        $phoneTwo = PhoneMother::createRandomNumber();
+        $phoneThree = PhoneMother::createRandomNumber();
 
         // repository mocking
         $contactInformationRepository = \Mockery::mock(SearchUserPhoneNumbersRepository::class);
@@ -54,10 +32,10 @@ class UserPhonesByPersonFinderTest extends TestCase
         $response = $finder->find(new PersonId(1));
 
         // ---------------- Then ----------------
-        Assert::assertTrue(sizeof($response->items()) === 3);
-        Assert::assertSame($phoneOne, $response->items()[0]);
-        Assert::assertSame($phoneTwo, $response->items()[1]);
-        Assert::assertSame($phoneThree, $response->items()[2]);
+        self::assertTrue(sizeof($response->items()) === 3);
+        self::assertSame($phoneOne, $response->items()[0]);
+        self::assertSame($phoneTwo, $response->items()[1]);
+        self::assertSame($phoneThree, $response->items()[2]);
     }
 
     public function tearDown(): void
