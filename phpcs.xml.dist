@@ -2,14 +2,14 @@
 
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+        xsi:noNamespaceSchemaLocation="./www/vendor/phpunit/phpunit/phpunit.xsd"
         backupGlobals="false"
         backupStaticAttributes="false"
         beStrictAboutOutputDuringTests="true"
         beStrictAboutChangesToGlobalState="true"
         beStrictAboutTestsThatDoNotTestAnything="false"
         beStrictAboutTodoAnnotatedTests="true"
-        bootstrap="./vendor/autoload.php"
+        bootstrap="./www/vendor/autoload.php"
         colors="true"
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
@@ -24,12 +24,12 @@
 
     <php>
         <ini name="error_reporting" value="-1" />
-        <server name="KERNEL_DIR" value="bin/" />
+        <server name="KERNEL_DIR" value="www/bin/" />
     </php>
 
     <testsuites>
         <testsuite name="Application">
-            <directory>./tests</directory>
+            <directory>./www/src/Tests</directory>
         </testsuite>
     </testsuites>
 
