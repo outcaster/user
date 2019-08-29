@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Persistence;
 
+use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Infrastructure\Serialization\Entities\IdentitySearchResponseWrapper;
 use App\UserContext\Domain\Repository\SearchPersonRepository;
 use App\UserContext\Infrastructure\Connections\ApiClient;
@@ -43,7 +44,7 @@ class SearchPersonSearchByNameRepository implements SearchPersonRepository
 
     /**
      * @param string $name
-     * @return array
+     * @return Person[]
      */
     public function search(string $name) :array
     {
@@ -78,6 +79,7 @@ class SearchPersonSearchByNameRepository implements SearchPersonRepository
                 $body
             );
 
+        /** @var IdentitySearchResponseWrapper $responseWrapper */
         $responseWrapper = $this->serializer->deserialize(
             $apiResponse->getBody()->getContents(),
             IdentitySearchResponseWrapper::class,

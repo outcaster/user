@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Persistence;
 
+use App\UserContext\Domain\Entities\Phone;
 use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
 use App\UserContext\Infrastructure\Connections\ApiClient;
 use App\UserContext\Infrastructure\Serialization\Serializer;
@@ -43,7 +44,7 @@ class SearchPhoneNumbersSearchUserByIdentityRepository implements SearchUserPhon
 
     /**
      * @param int $id
-     * @return array
+     * @return Phone[]
      */
     public function search(int $id) :array
     {
@@ -70,6 +71,7 @@ class SearchPhoneNumbersSearchUserByIdentityRepository implements SearchUserPhon
             ->client
             ->post($this->apiEndpoint . '/v1/contactinformationidentity/searchby', $body);
 
+        /** @var ContactInformationSearchResponseWrapper $responseWrapper */
         $responseWrapper = $this->serializer->deserialize(
             $apiResponse->getBody()->getContents(),
             ContactInformationSearchResponseWrapper::class,

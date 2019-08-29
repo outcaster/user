@@ -46,9 +46,9 @@ abstract class CollectionResponse implements Countable, IteratorAggregate
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function count() :?int
+    public function count() :int
     {
         return count($this->items());
     }
