@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Persistence;
 
-use App\UserContext\Domain\Entities\Person;
+use App\UserContext\Domain\Entities\PersonId;
 use App\UserContext\Domain\Repository\FindPhoneByPersonInterface;
 use App\UserContext\Infrastructure\Connections\ApiClient;
 use App\UserContext\Infrastructure\Serialization\Serializer;
@@ -43,10 +43,10 @@ class FindPhonesByPerson implements FindPhoneByPersonInterface
     }
 
     /**
-     * @param Person $person
+     * @param PersonId $personId
      * @return array
      */
-    public function search(Person $person) :array
+    public function search(PersonId $personId) :array
     {
         $body = [
             'limit' => [
@@ -56,7 +56,7 @@ class FindPhonesByPerson implements FindPhoneByPersonInterface
             'criteria' => [
                 'field' => 'identity_id',
                 'operator' => '=',
-                'value' => $person->getId()->getValue(),
+                'value' => $personId->getValue(),
             ]
         ];
 

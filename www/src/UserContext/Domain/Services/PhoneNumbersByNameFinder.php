@@ -8,7 +8,7 @@ use App\UserContext\Domain\Entities\PersonPhonesCollection;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\PersonName;
 
-class GetPhoneNumbersByNameFinder
+class PhoneNumbersByNameFinder
 {
     /** @var PersonByNameFinder */
     private $personFinder;
@@ -42,7 +42,7 @@ class GetPhoneNumbersByNameFinder
         //2.foreach identity get the user contact information
         /** @var Person $person */
         foreach ($people as $person) {
-            $contactInfoArray = $this->userPhonesFinder->find($person);
+            $contactInfoArray = $this->userPhonesFinder->find($person->getId());
             //3. build the user telephone object
             $userPhone = new PersonPhone($person, $contactInfoArray->items());
             $result[] = $userPhone;

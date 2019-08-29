@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Repository;
 
-use App\UserContext\Domain\Entities\Person;
+use App\UserContext\Domain\Entities\PersonId;
 use App\UserContext\Domain\Entities\Phone;
 
 interface FindPhoneByPersonInterface
@@ -12,9 +12,9 @@ interface FindPhoneByPersonInterface
     /**
      * Find a list of phone numbers by person id
      *
-     * @param Person $person
+     * @param PersonId $personId
      *
      * @return Phone[]
      */
-    public function search(Person $person): array;
+    public function search(PersonId $personId): array;
 }

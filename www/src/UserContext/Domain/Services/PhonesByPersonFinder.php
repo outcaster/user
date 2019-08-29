@@ -3,8 +3,8 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Domain\Services;
 
+use App\UserContext\Domain\Entities\PersonId;
 use App\UserContext\Domain\Entities\PhonesCollection;
-use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Repository\FindPhoneByPersonInterface;
 
 class PhonesByPersonFinder
@@ -23,14 +23,14 @@ class PhonesByPersonFinder
 
     /**
      * Find the user phones by the person
-     * @param Person $person
+     * @param PersonId $personId
      * @return PhonesCollection|null
      */
-    public function find(Person $person) :?PhonesCollection
+    public function find(PersonId $personId) :?PhonesCollection
     {
         return new PhonesCollection(
             $this->repository->search(
-                $person
+                $personId
             )
         );
     }
