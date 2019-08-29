@@ -84,7 +84,7 @@ class GuzzleApiClient implements ApiClient
             $header = null;
             if (function_exists('apache_request_headers')) {
                 $all = apache_request_headers(); // TODO: what happen for others?
-                if (isset($all['Authorization'])) {
+                if (is_array($all) && array_key_exists('Authorization', $all)) {
                     $header = $all['Authorization'];
                 }
             }
