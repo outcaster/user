@@ -13,7 +13,7 @@
 ###< friends-of-behat/symfony-extension ###
 
 ###< IDEs ###
-/.idea
+/www/.idea
 ###> IDEs ###
 
 ###< CI and QA ###

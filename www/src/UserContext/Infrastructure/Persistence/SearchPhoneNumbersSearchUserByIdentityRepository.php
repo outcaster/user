@@ -5,7 +5,7 @@ namespace App\UserContext\Infrastructure\Persistence;
 
 use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
 use App\UserContext\Infrastructure\Connections\ApiClient;
-use App\UserContext\Infrastructure\Serialization\Serializer;
+use App\UserContext\Infrastructure\Serialization\SymfonyDeserializer as Serializer;
 use App\UserContext\Infrastructure\Serialization\Entities\ContactInformationSearchResponseWrapper;
 use App\UserContext\Infrastructure\Serialization\Adapter\ContactInformationToPhoneNumberAdapter;
 
@@ -47,13 +47,6 @@ class SearchPhoneNumbersSearchUserByIdentityRepository implements SearchUserPhon
      */
     public function search(int $id) :array
     {
-        /*
-         * Old method:
-        $apiResponse = $this
-            ->client
-            ->get($this->apiEndpoint . '/v1/contactinformation/' . $id);
-        */
-
         $body = [
             'limit' => [
                 'start' => 0,

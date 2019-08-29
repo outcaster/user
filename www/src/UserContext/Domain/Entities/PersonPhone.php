@@ -16,12 +16,6 @@ final class PersonPhone extends AggregateRoot
     /** @var Phone[] */
     private $userPhones;
 
-    /** @var array */
-    public $personInfo = [];
-
-    /** @var array */
-    public $phoneNumbers = [];
-
     /**
      * ContactInformationAggregateRoot constructor.
      * @param Person $person
@@ -31,30 +25,21 @@ final class PersonPhone extends AggregateRoot
     {
         $this->person = $person;
         $this->userPhones = $userPhones;
-        $this->buildPhoneNumbers();
-        $this->buildPersonInfo();
     }
 
     /**
-     * Build $this->phoneNumbers array
+     * @return Person
      */
-    protected function buildPhoneNumbers(): void
+    public function getPerson(): Person
     {
-        foreach ($this->userPhones as $userPhone) {
-            $this->phoneNumbers[$userPhone->getType()->getContactName()] = $userPhone->getPhoneNumber()->getValue();
-        }
+        return $this->person;
     }
 
     /**
-     * Build $this->phoneNumbers array
+     * @return Phone[]
      */
-    protected function buildPersonInfo(): void
+    public function getUserPhones(): array
     {
-        $person = $this->person;
-
-        $this->personInfo = [
-            self::PERSON_ID => $person->getId()->getValue(),
-            self::PERSON_NAME => $person->getName()->getValue(),
-        ];
+        return $this->userPhones;
     }
 }

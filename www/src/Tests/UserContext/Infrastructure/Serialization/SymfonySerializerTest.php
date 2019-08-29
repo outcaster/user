@@ -6,7 +6,7 @@ namespace App\Tests\UserContext\Infrastructure\Serialization;
 use App\Tests\UserContext\Infrastructure\Serialization\Entities\IdentityResponseMother;
 use App\UserContext\Infrastructure\Serialization\Entities\Identity;
 use App\UserContext\Infrastructure\Serialization\Entities\IdentitySearchResponseWrapper;
-use App\UserContext\Infrastructure\Serialization\SymfonySerializer;
+use App\UserContext\Infrastructure\Serialization\SymfonyDeserializer;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +15,7 @@ class SymfonySerializerTest extends TestCase
     /** @test */
     public function itShouldDeserialize(): void
     {
-        $serializer = new SymfonySerializer();
+        $serializer = new SymfonyDeserializer();
         $data = IdentityResponseMother::random();
         $object = json_encode($data[IdentityResponseMother::OBJECT]);
         $expected = $data[IdentityResponseMother::EXPECTED];

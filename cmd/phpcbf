@@ -42,4 +42,4 @@ docker run --rm ${option_tty} \
         --report-xml=${REPORTS_FOLDER}/report.xml \
         --report-json=${REPORTS_FOLDER}/report.json \
         --report-width=120 \
-        www/src/UsersContext
+        www/src/UserContext
