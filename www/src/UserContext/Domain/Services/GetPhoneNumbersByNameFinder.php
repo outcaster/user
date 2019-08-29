@@ -8,20 +8,20 @@ use App\UserContext\Domain\Entities\PersonPhonesCollection;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\PersonName;
 
-class GetPhoneNumberByNameFinder
+class GetPhoneNumbersByNameFinder
 {
     /** @var PersonByNameFinder */
     private $personFinder;
 
-    /** @var UserPhonesByPersonFinder */
+    /** @var PhonesByPersonFinder */
     private $userPhonesFinder;
 
     /**
      * GetPhoneNumberByNameFinder constructor.
      * @param PersonByNameFinder $personFinder
-     * @param UserPhonesByPersonFinder $userPhonesFinder
+     * @param PhonesByPersonFinder $userPhonesFinder
      */
-    public function __construct(PersonByNameFinder $personFinder, UserPhonesByPersonFinder $userPhonesFinder)
+    public function __construct(PersonByNameFinder $personFinder, PhonesByPersonFinder $userPhonesFinder)
     {
         $this->personFinder = $personFinder;
         $this->userPhonesFinder = $userPhonesFinder;
@@ -42,7 +42,7 @@ class GetPhoneNumberByNameFinder
         //2.foreach identity get the user contact information
         /** @var Person $person */
         foreach ($people as $person) {
-            $contactInfoArray = $this->userPhonesFinder->find($person->getId());
+            $contactInfoArray = $this->userPhonesFinder->find($person);
             //3. build the user telephone object
             $userPhone = new PersonPhone($person, $contactInfoArray->items());
             $result[] = $userPhone;

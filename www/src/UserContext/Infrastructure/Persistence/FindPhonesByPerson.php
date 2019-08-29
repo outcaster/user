@@ -3,13 +3,14 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Persistence;
 
-use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
+use App\UserContext\Domain\Entities\Person;
+use App\UserContext\Domain\Repository\FindPhoneByPersonInterface;
 use App\UserContext\Infrastructure\Connections\ApiClient;
 use App\UserContext\Infrastructure\Serialization\Serializer;
 use App\UserContext\Infrastructure\Serialization\Entities\ContactInformationSearchResponseWrapper;
 use App\UserContext\Infrastructure\Serialization\Adapter\ContactInformationToPhoneNumberAdapter;
 
-class SearchPhoneNumbersSearchUserByIdentityRepository implements SearchUserPhoneNumbersRepository
+class FindPhonesByPerson implements FindPhoneByPersonInterface
 {
     /** @var ApiClient */
     private $client;
@@ -42,18 +43,11 @@ class SearchPhoneNumbersSearchUserByIdentityRepository implements SearchUserPhon
     }
 
     /**
-     * @param int $id
+     * @param Person $person
      * @return array
      */
-    public function search(int $id) :array
+    public function search(Person $person) :array
     {
-        /*
-         * Old method:
-        $apiResponse = $this
-            ->client
-            ->get($this->apiEndpoint . '/v1/contactinformation/' . $id);
-        */
-
         $body = [
             'limit' => [
                 'start' => 0,
@@ -62,7 +56,7 @@ class SearchPhoneNumbersSearchUserByIdentityRepository implements SearchUserPhon
             'criteria' => [
                 'field' => 'identity_id',
                 'operator' => '=',
-                'value' => $id,
+                'value' => $person->getId()->getValue(),
             ]
         ];
 

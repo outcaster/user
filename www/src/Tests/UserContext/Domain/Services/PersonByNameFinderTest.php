@@ -6,7 +6,7 @@ namespace App\Tests\UserContext\Domain\Services;
 use App\Tests\UserContext\Domain\Entities\PersonMother;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\PersonName;
-use App\UserContext\Domain\Repository\SearchPersonRepository;
+use App\UserContext\Domain\Repository\FindPersonByNameInterface;
 use App\UserContext\Domain\Services\PersonByNameFinder;
 use PHPUnit\Framework\TestCase;
 
@@ -43,11 +43,11 @@ class PersonByNameFinderTest extends TestCase
      * Generate a mocked repository with one person identified by the given name
      * @param string $name
      * @param Person $person
-     * @return SearchPersonRepository
+     * @return FindPersonByNameInterface
      */
-    protected function repository(string $name, Person $person): SearchPersonRepository
+    protected function repository(string $name, Person $person): FindPersonByNameInterface
     {
-        $identityRepository = \Mockery::mock(SearchPersonRepository::class);
+        $identityRepository = \Mockery::mock(FindPersonByNameInterface::class);
         $identityRepository->shouldReceive('search')
             ->with($name)
             ->andReturn([$person]);
