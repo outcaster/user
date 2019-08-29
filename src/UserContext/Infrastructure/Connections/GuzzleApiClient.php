@@ -78,7 +78,7 @@ class GuzzleApiClient implements ApiClient
      */
     protected function getAuth()
     {
-        $auth = isset($this->auth) ? $this->auth : null;
+        $auth = ('' !== $this->auth) ? $this->auth : null;
         // get token from current request. TODO: is that correct?
         if ($this->isAuthByPassActive) {
             $header = null;
