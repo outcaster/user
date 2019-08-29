@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace App\UserContext\Infrastructure\Persistence;
 
 use App\UserContext\Infrastructure\Serialization\DeserializerInterface;
+use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Infrastructure\Serialization\Entities\IdentitySearchResponseWrapper;
 use App\UserContext\Domain\Repository\FindPersonByNameInterface;
 use App\UserContext\Infrastructure\Connections\ApiClient;
@@ -43,7 +44,7 @@ class FindPersonByNameRepository implements FindPersonByNameInterface
 
     /**
      * @param string $name
-     * @return array
+     * @return Person[]
      */
     public function search(string $name) :array
     {
@@ -66,6 +67,7 @@ class FindPersonByNameRepository implements FindPersonByNameInterface
                 $body
             );
 
+        /** @var IdentitySearchResponseWrapper $responseWrapper */
         $responseWrapper = $this->deserializer->deserialize(
             $apiResponse->getBody()->getContents(),
             IdentitySearchResponseWrapper::class,
