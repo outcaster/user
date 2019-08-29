@@ -14,6 +14,12 @@ final class PhoneType
     const WORK_NUMBER_TEXT = 'WorkNumber';
     const MOBILE_NUMBER_TEXT = 'MobileNumber';
 
+    const KNOWN_PHONE_TYPES = [
+        self::PERSONAL_NUMBER => self::PERSONAL_NUMBER_TEXT,
+        self::WORK_NUMBER => self::WORK_NUMBER_TEXT,
+        self::MOBILE_NUMBER => self::MOBILE_NUMBER_TEXT,
+    ];
+
     /** @var int */
     private $contactId;
 
@@ -27,18 +33,18 @@ final class PhoneType
     public function __construct(int $contactId)
     {
         $this->contactId = $contactId;
-        switch ($contactId) {
-            case self::PERSONAL_NUMBER:
-                $this->contactName = self::PERSONAL_NUMBER_TEXT;
-                break;
-            case self::WORK_NUMBER:
-                $this->contactName = self::WORK_NUMBER_TEXT;
-                break;
-            case self::MOBILE_NUMBER:
-                $this->contactName = self::MOBILE_NUMBER_TEXT;
-                break;
-            default:
-                throw new UnknownUserPhoneException('Unknown contact information id:' . $contactId);
+        $this->ensureItIsKnownType();
+        $this->contactName = self::KNOWN_PHONE_TYPES[$this->contactId];
+    }
+
+    /**
+     * @throws UnknownUserPhoneException if the user in not a known type
+     */
+    public function ensureItIsKnownType(): void
+    {
+        if ($this->contactId < self::PERSONAL_NUMBER ||
+            $this->contactId > self::MOBILE_NUMBER) {
+                throw new UnknownUserPhoneException('Unknown contact information id:' . $this->contactId);
         }
     }
 
@@ -50,7 +56,7 @@ final class PhoneType
         return $this->contactName;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->contactName;
     }

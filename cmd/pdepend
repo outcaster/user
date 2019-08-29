@@ -30,9 +30,9 @@ docker run --rm ${option_tty} \
     --volume ${__root}:/data/www \
     --volume ${REPORTS_FOLDER}:${REPORTS_FOLDER} \
     ${REGISTRY} \
-        --ignore=/Resources/,/Tests/,/Test/,/Entity/,/Features/,/DataFixtures/,/*Bundle.php,**/Kernel.php \
+        --ignore=/Tests/,/InfrastructureBundle/Kernel.php \
         --summary-xml=${REPORTS_FOLDER}/summary.xml \
         --jdepend-xml=${REPORTS_FOLDER}/pdepend.xml \
         --jdepend-chart=${REPORTS_FOLDER}/dependencies.svg \
         --overview-pyramid=${REPORTS_FOLDER}/overview-pyramid.svg \
-        src
+        www/src/UserContext

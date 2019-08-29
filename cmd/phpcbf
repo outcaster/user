@@ -34,7 +34,7 @@ docker run --rm ${option_tty} \
         --extensions=php \
         --encoding=utf-8 \
         --standard=CodeSnifferExtended \
-        --ignore=**/map/**,**/om/**,**/www/app/*Migration/**,**/www/app/SymfonyRequirements.php,**/www/app/AppCache.php,**/Kernel.php \
+        --ignore=**/InfrastructureBundle/Kernel.php \
         --colors \
         --report-summary \
         --report-full=${REPORTS_FOLDER}/full-report.txt \
@@ -42,4 +42,4 @@ docker run --rm ${option_tty} \
         --report-xml=${REPORTS_FOLDER}/report.xml \
         --report-json=${REPORTS_FOLDER}/report.json \
         --report-width=120 \
-        src
+        www/src/UsersContext

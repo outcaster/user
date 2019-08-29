@@ -83,6 +83,9 @@
             "tests/Behat/DemoContext.php"
         ]
     },
+    "fzaninotto/faker": {
+        "version": "v1.8.0"
+    },
     "guzzlehttp/guzzle": {
         "version": "6.3.3"
     },

@@ -24,8 +24,8 @@ QA_BUILD_FOLDER=${QA_BUILD_FOLDER:-${__root}/data/build}
 REPORTS_FOLDER="${QA_BUILD_FOLDER}/user/$(date +'%Y%m%d0000')/logs/phpmetrics"
 mkdir -p ${REPORTS_FOLDER} 2>/dev/null
 
-PATHS_TO_COMPUTE="composer.json,src"
-[[ -f composer.lock ]] && PATHS_TO_COMPUTE="${PATHS_TO_COMPUTE},composer.lock"
+PATHS_TO_COMPUTE="www/composer.json,www/src/UserContext"
+[[ -f www/composer.lock ]] && PATHS_TO_COMPUTE="${PATHS_TO_COMPUTE},www/composer.lock"
 
 JUNIT_REPORT=""
 [[ -f ${REPORTS_FOLDER}/../phpunit/phpunit-unit.xml ]] && JUNIT_REPORT="--junit=${REPORTS_FOLDER}/../phpunit/phpunit-unit.xml"
@@ -36,7 +36,7 @@ docker run --rm ${option_tty} \
     --volume ${__root}:/data/www \
     --volume ${REPORTS_FOLDER}/..:${REPORTS_FOLDER}/.. \
     ${REGISTRY} \
-        --exclude=Tests,tests,Features,features,.svn,.git,vendor,node_modules,cache,Kernel.php \
+        --exclude=Tests,tests,.svn,.git,vendor,InfrastructureBundle \
         --git \
         ${JUNIT_REPORT} \
         --report-html=${REPORTS_FOLDER} \
