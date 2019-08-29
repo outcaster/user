@@ -8,7 +8,7 @@ interface Serializer
     /**
      * Deserializes data into the given type.
      *
-     * @param mixed  $body
+     * @param string  $body
      * @param string $classname
      * @param string $format
      *
