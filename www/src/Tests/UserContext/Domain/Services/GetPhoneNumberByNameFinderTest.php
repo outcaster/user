@@ -12,7 +12,7 @@ use App\UserContext\Domain\Entities\PhonesCollection;
 use App\UserContext\Domain\Entities\PersonPhone;
 use App\UserContext\Domain\Entities\PersonName;
 use App\UserContext\Domain\Entities\PhoneType;
-use App\UserContext\Domain\Services\GetPhoneNumbersByNameFinder;
+use App\UserContext\Domain\Services\PhoneNumbersByNameFinder;
 use App\UserContext\Domain\Services\PersonByNameFinder;
 use App\UserContext\Domain\Services\PhonesByPersonFinder;
 use PHPUnit\Framework\TestCase;
@@ -37,18 +37,26 @@ class GetPhoneNumberByNameFinderTest extends TestCase
 
         // ---------------- When ----------------
         $response = $getPhoneNumberByNameFinder->find(new PersonName($identity->getName()->getValue()));
+        $personPhonesArray = $response->getPersonPhones();
 
         // ---------------- Then ----------------
-        self::assertTrue(sizeof($response->items()) > 0);
+        self::assertTrue(sizeof($personPhonesArray) > 0);
         self::assertSame([
             PersonPhone::PERSON_ID => $identity->getId()->getValue(),
             PersonPhone::PERSON_NAME => $identity->getName()->getValue(),
-        ], $response->items()[0]->personInfo);
+        ], [
+            PersonPhone::PERSON_ID => $personPhonesArray[0]->getPerson()->getId()->getValue(),
+            PersonPhone::PERSON_NAME => $personPhonesArray[0]->getPerson()->getName()->getValue(),
+        ]);
         self::assertSame([
             PhoneType::PERSONAL_NUMBER_TEXT => $personalNumber->getPhoneNumber()->getValue(),
             PhoneType::WORK_NUMBER_TEXT => $workNumber->getPhoneNumber()->getValue(),
             PhoneType::MOBILE_NUMBER_TEXT => $mobileNumber->getPhoneNumber()->getValue(),
-        ], $response->items()[0]->phoneNumbers);
+        ], [
+            PhoneType::PERSONAL_NUMBER_TEXT => $personPhonesArray[0]->getUserPhones()[0]->getPhoneNumber()->getValue(),
+            PhoneType::WORK_NUMBER_TEXT => $personPhonesArray[0]->getUserPhones()[1]->getPhoneNumber()->getValue(),
+            PhoneType::MOBILE_NUMBER_TEXT => $personPhonesArray[0]->getUserPhones()[2]->getPhoneNumber()->getValue(),
+        ]);
     }
 
     public function tearDown(): void
@@ -62,9 +70,9 @@ class GetPhoneNumberByNameFinderTest extends TestCase
      * @param Person $person
      * @param Phone[] $phones
      *
-     * @return GetPhoneNumbersByNameFinder
+     * @return PhoneNumbersByNameFinder
      */
-    protected function finder(Person $person, array $phones): GetPhoneNumbersByNameFinder
+    protected function finder(Person $person, array $phones): PhoneNumbersByNameFinder
     {
         // service mocking
         $personFinder = \Mockery::mock(PersonByNameFinder::class);
@@ -74,7 +82,7 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         $userPhonesFinder->shouldReceive('find')
             ->andReturn(new PhonesCollection($phones));
 
-        return new GetPhoneNumbersByNameFinder(
+        return new PhoneNumbersByNameFinder(
             $personFinder,
             $userPhonesFinder
         );

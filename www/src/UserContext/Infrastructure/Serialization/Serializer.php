@@ -3,16 +3,23 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Serialization;
 
-interface Serializer
+class Serializer extends AbstractSerializer implements SerializerInterface
 {
+    /** @var AbstractSerializer */
+    private $serializer;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->serializer = $this->getSerializer();
+    }
+
     /**
-     * Deserializes data into the given type.
-     *
-     * @param string  $body
-     * @param string $classname
-     * @param string $format
-     *
-     * @return object
+     * @param array $data
+     * @return string
      */
-    public function deserialize(string $body, string $classname, string $format);
+    public function serialize(array $data): string
+    {
+        return $this->serializer->serialize($data, 'json');
+    }
 }

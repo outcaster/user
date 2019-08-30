@@ -4,9 +4,9 @@ declare(strict_types = 1);
 namespace App\UserContext\Domain\Services;
 
 use App\UserContext\Domain\Entities\PersonPhone;
-use App\UserContext\Domain\Entities\PersonPhonesCollection;
 use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\PersonName;
+use App\UserContext\Application\GetPhoneNumber\Query\PhoneQueryResponse;
 
 class PhoneNumbersByNameFinder
 {
@@ -31,9 +31,9 @@ class PhoneNumbersByNameFinder
      * Find the persons and related phones for the given query
      *
      * @param PersonName $name
-     * @return PersonPhonesCollection
+     * @return PhoneQueryResponse
      */
-    public function find(PersonName $name) :PersonPhonesCollection
+    public function find(PersonName $name) :PhoneQueryResponse
     {
         $result = [];
         //1. get the identities
@@ -48,6 +48,6 @@ class PhoneNumbersByNameFinder
             $result[] = $userPhone;
         }
 
-        return new PersonPhonesCollection($result);
+        return new PhoneQueryResponse($result);
     }
 }

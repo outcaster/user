@@ -13,6 +13,7 @@
 ###< friends-of-behat/symfony-extension ###
 
 ###< IDEs ###
+/www/.idea
 /.idea
 ###> IDEs ###
 
