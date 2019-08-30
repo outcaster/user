@@ -78,7 +78,7 @@ class GuzzleApiClient implements ApiClient
      */
     protected function getAuth()
     {
-        $auth = empty($this->auth) ? $this->auth : null;
+        $auth = ('' !== $this->auth) ? $this->auth : null;
         // get token from current request. TODO: is that correct?
         if ($this->isAuthByPassActive) {
             $header = null;
@@ -96,7 +96,7 @@ class GuzzleApiClient implements ApiClient
     /**
      * Get request headers for the request
      *
-     * @return mixed
+     * @return array
      */
     protected function getHeaders(): array
     {

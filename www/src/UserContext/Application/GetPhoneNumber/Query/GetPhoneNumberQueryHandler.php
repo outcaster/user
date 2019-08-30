@@ -4,18 +4,18 @@ declare(strict_types = 1);
 namespace App\UserContext\Application\GetPhoneNumber\Query;
 
 use App\UserContext\Domain\Entities\PersonName;
-use App\UserContext\Domain\Services\GetPhoneNumberByNameFinder;
+use App\UserContext\Domain\Services\PhoneNumbersByNameFinder;
 
 class GetPhoneNumberQueryHandler
 {
-    /** @var GetPhoneNumberByNameFinder */
+    /** @var PhoneNumbersByNameFinder */
     private $getPhoneNumberByNameManager;
 
     /**
      * GetPhoneNumberQueryHandler constructor.
-     * @param GetPhoneNumberByNameFinder $getPhoneNumberByNameManager
+     * @param PhoneNumbersByNameFinder $getPhoneNumberByNameManager
      */
-    public function __construct(GetPhoneNumberByNameFinder $getPhoneNumberByNameManager)
+    public function __construct(PhoneNumbersByNameFinder $getPhoneNumberByNameManager)
     {
         $this->getPhoneNumberByNameManager = $getPhoneNumberByNameManager;
     }

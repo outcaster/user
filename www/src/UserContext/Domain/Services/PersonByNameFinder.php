@@ -5,18 +5,18 @@ namespace App\UserContext\Domain\Services;
 
 use App\UserContext\Domain\Entities\PersonCollection;
 use App\UserContext\Domain\Entities\PersonName;
-use App\UserContext\Domain\Repository\SearchPersonRepository;
+use App\UserContext\Domain\Repository\FindPersonByNameInterface;
 
 class PersonByNameFinder
 {
-    /** @var SearchPersonRepository */
+    /** @var FindPersonByNameInterface */
     private $searchPersonRepository;
 
     /**
      * PersonByNameFinder constructor.
-     * @param SearchPersonRepository $searchPersonRepository
+     * @param FindPersonByNameInterface $searchPersonRepository
      */
-    public function __construct(SearchPersonRepository $searchPersonRepository)
+    public function __construct(FindPersonByNameInterface $searchPersonRepository)
     {
         $this->searchPersonRepository = $searchPersonRepository;
     }

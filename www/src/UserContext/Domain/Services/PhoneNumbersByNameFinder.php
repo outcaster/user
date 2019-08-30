@@ -8,20 +8,20 @@ use App\UserContext\Domain\Entities\Person;
 use App\UserContext\Domain\Entities\PersonName;
 use App\UserContext\Application\GetPhoneNumber\Query\PhoneQueryResponse;
 
-class GetPhoneNumberByNameFinder
+class PhoneNumbersByNameFinder
 {
     /** @var PersonByNameFinder */
     private $personFinder;
 
-    /** @var UserPhonesByPersonFinder */
+    /** @var PhonesByPersonFinder */
     private $userPhonesFinder;
 
     /**
      * GetPhoneNumberByNameFinder constructor.
      * @param PersonByNameFinder $personFinder
-     * @param UserPhonesByPersonFinder $userPhonesFinder
+     * @param PhonesByPersonFinder $userPhonesFinder
      */
-    public function __construct(PersonByNameFinder $personFinder, UserPhonesByPersonFinder $userPhonesFinder)
+    public function __construct(PersonByNameFinder $personFinder, PhonesByPersonFinder $userPhonesFinder)
     {
         $this->personFinder = $personFinder;
         $this->userPhonesFinder = $userPhonesFinder;

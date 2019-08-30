@@ -4,12 +4,12 @@ declare(strict_types = 1);
 namespace App\UserContext\Infrastructure\Persistence;
 
 use App\UserContext\Infrastructure\Serialization\Entities\IdentitySearchResponseWrapper;
-use App\UserContext\Domain\Repository\SearchPersonRepository;
+use App\UserContext\Domain\Repository\FindPersonByNameInterface;
 use App\UserContext\Infrastructure\Connections\ApiClient;
 use App\UserContext\Infrastructure\Serialization\SymfonyDeserializer as Serializer;
 use App\UserContext\Infrastructure\Serialization\Adapter\IdentityToPersonAdapter;
 
-class SearchPersonSearchByNameRepository implements SearchPersonRepository
+class FindPersonByNameRepository implements FindPersonByNameInterface
 {
     /** @var ApiClient  */
     private $client;
