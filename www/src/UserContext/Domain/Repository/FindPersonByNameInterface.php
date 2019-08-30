@@ -5,7 +5,7 @@ namespace App\UserContext\Domain\Repository;
 
 use App\UserContext\Domain\Entities\Person;
 
-interface SearchPersonRepository
+interface FindPersonByNameInterface
 {
 
     /**

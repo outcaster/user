@@ -5,14 +5,14 @@ namespace App\UserContext\Application\GetPhoneNumber\Query;
 
 use App\UserContext\Domain\Entities\PersonPhonesCollection;
 use App\UserContext\Domain\Entities\PersonName;
-use App\UserContext\Domain\Services\GetPhoneNumberByNameFinder;
+use App\UserContext\Domain\Services\PhoneNumbersByNameFinder;
 
 class GetPhoneNumberQueryHandler
 {
-    /** @var GetPhoneNumberByNameFinder */
+    /** @var PhoneNumbersByNameFinder */
     private $getPhoneNumberByNameManager;
 
-    public function __construct(GetPhoneNumberByNameFinder $getPhoneNumberByNameManager)
+    public function __construct(PhoneNumbersByNameFinder $getPhoneNumberByNameManager)
     {
         $this->getPhoneNumberByNameManager = $getPhoneNumberByNameManager;
     }

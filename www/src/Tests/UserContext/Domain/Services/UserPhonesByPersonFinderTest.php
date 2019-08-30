@@ -6,7 +6,7 @@ namespace App\Tests\UserContext\Domain\Services;
 use App\Tests\UserContext\Domain\Entities\PhoneMother;
 use App\UserContext\Domain\Entities\PersonId;
 use App\UserContext\Domain\Repository\SearchUserPhoneNumbersRepository;
-use App\UserContext\Domain\Services\UserPhonesByPersonFinder;
+use App\UserContext\Domain\Services\PhonesByPersonFinder;
 use PHPUnit\Framework\TestCase;
 
 class UserPhonesByPersonFinderTest extends TestCase
@@ -26,7 +26,7 @@ class UserPhonesByPersonFinderTest extends TestCase
             ->andReturn([$phoneOne, $phoneTwo, $phoneThree]);
 
         // initialize the finder
-        $finder = new UserPhonesByPersonFinder($contactInformationRepository);
+        $finder = new PhonesByPersonFinder($contactInformationRepository);
 
         // ---------------- When ----------------
         $response = $finder->find(new PersonId(1));
