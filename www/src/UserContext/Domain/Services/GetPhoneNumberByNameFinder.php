@@ -44,9 +44,9 @@ class GetPhoneNumberByNameFinder
         /** @var Person $person */
         foreach ($people as $person) {
             $contactInfoArray = $this->userPhonesFinder->find($person->getId());
-            if (is_null($contactInfoArray)) continue;
+            $phones = is_null($contactInfoArray) ? [] : $contactInfoArray->items();
             //3. build the user telephone object
-            $userPhone = new PersonPhone($person, $contactInfoArray->items());
+            $userPhone = new PersonPhone($person, $phones);
             $result[] = $userPhone;
         }
 
