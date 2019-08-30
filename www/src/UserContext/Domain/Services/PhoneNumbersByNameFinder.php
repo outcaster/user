@@ -38,11 +38,13 @@ class PhoneNumbersByNameFinder
         $result = [];
         //1. get the identities
         $people = $this->personFinder->find($name);
+        if (is_null($people)) return new PersonPhonesCollection([]);
 
         //2.foreach identity get the user contact information
         /** @var Person $person */
         foreach ($people as $person) {
             $contactInfoArray = $this->userPhonesFinder->find($person->getId());
+            if (is_null($contactInfoArray)) continue;
             //3. build the user telephone object
             $userPhone = new PersonPhone($person, $contactInfoArray->items());
             $result[] = $userPhone;
