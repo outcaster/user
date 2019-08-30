@@ -6,7 +6,7 @@ namespace App\UserContext\Infrastructure\Serialization;
 use Symfony\Component\Serializer\Serializer;
 use App\UserContext\Infrastructure\Serialization\Serializer as AbstractSerializerClass;
 
-class SymfonyDeserializer extends AbstractSerializerClass
+class SymfonyDeserializer extends AbstractSerializerClass implements SymfonyDeserializerInterface
 {
     /** @var Serializer */
     private $serializer;

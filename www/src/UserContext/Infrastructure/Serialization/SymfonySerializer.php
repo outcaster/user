@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Serialization;
 
-class SymfonySerializer extends Serializer
+class SymfonySerializer extends Serializer implements SymfonySerializerInterface
 {
     /** @var Serializer */
     private $serializer;
