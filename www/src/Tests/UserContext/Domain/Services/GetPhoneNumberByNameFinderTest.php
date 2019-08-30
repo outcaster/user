@@ -12,7 +12,7 @@ use App\UserContext\Domain\Entities\PhonesCollection;
 use App\UserContext\Domain\Entities\PersonPhone;
 use App\UserContext\Domain\Entities\PersonName;
 use App\UserContext\Domain\Entities\PhoneType;
-use App\UserContext\Domain\Services\GetPhoneNumbersByNameFinder;
+use App\UserContext\Domain\Services\PhoneNumbersByNameFinder;
 use App\UserContext\Domain\Services\PersonByNameFinder;
 use App\UserContext\Domain\Services\PhonesByPersonFinder;
 use PHPUnit\Framework\TestCase;
@@ -62,9 +62,9 @@ class GetPhoneNumberByNameFinderTest extends TestCase
      * @param Person $person
      * @param Phone[] $phones
      *
-     * @return GetPhoneNumbersByNameFinder
+     * @return PhoneNumbersByNameFinder
      */
-    protected function finder(Person $person, array $phones): GetPhoneNumbersByNameFinder
+    protected function finder(Person $person, array $phones): PhoneNumbersByNameFinder
     {
         // service mocking
         $personFinder = \Mockery::mock(PersonByNameFinder::class);
@@ -74,7 +74,7 @@ class GetPhoneNumberByNameFinderTest extends TestCase
         $userPhonesFinder->shouldReceive('find')
             ->andReturn(new PhonesCollection($phones));
 
-        return new GetPhoneNumbersByNameFinder(
+        return new PhoneNumbersByNameFinder(
             $personFinder,
             $userPhonesFinder
         );
