@@ -3,12 +3,9 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Serialization;
 
-use Symfony\Component\Serializer\Serializer;
-use App\UserContext\Infrastructure\Serialization\Serializer as AbstractSerializerClass;
-
-class SymfonyDeserializer extends AbstractSerializerClass implements SymfonyDeserializerInterface
+class Deserializer extends AbstractSerializer implements DeserializerInterface
 {
-    /** @var Serializer */
+    /** @var AbstractSerializer */
     private $serializer;
 
     public function __construct()

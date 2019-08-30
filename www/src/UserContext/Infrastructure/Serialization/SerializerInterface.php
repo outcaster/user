@@ -4,7 +4,7 @@
 namespace App\UserContext\Infrastructure\Serialization;
 
 
-interface SymfonySerializerInterface
+interface SerializerInterface
 {
     public function serialize(array $data): string;
 }

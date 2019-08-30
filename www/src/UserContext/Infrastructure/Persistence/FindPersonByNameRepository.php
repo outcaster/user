@@ -3,10 +3,10 @@ declare(strict_types = 1);
 
 namespace App\UserContext\Infrastructure\Persistence;
 
+use App\UserContext\Infrastructure\Serialization\DeserializerInterface;
 use App\UserContext\Infrastructure\Serialization\Entities\IdentitySearchResponseWrapper;
 use App\UserContext\Domain\Repository\FindPersonByNameInterface;
 use App\UserContext\Infrastructure\Connections\ApiClient;
-use App\UserContext\Infrastructure\Serialization\SymfonyDeserializer as Serializer;
 use App\UserContext\Infrastructure\Serialization\Adapter\IdentityToPersonAdapter;
 
 class FindPersonByNameRepository implements FindPersonByNameInterface
@@ -14,8 +14,8 @@ class FindPersonByNameRepository implements FindPersonByNameInterface
     /** @var ApiClient  */
     private $client;
 
-    /** @var Serializer  */
-    private $serializer;
+    /** @var DeserializerInterface  */
+    private $deserializer;
 
     /** @var IdentityToPersonAdapter  */
     private $identityAdapter;
@@ -31,12 +31,12 @@ class FindPersonByNameRepository implements FindPersonByNameInterface
 
     public function __construct(
         ApiClient $client,
-        Serializer $serializer,
+        DeserializerInterface $deserializer,
         IdentityToPersonAdapter $identityAdapter,
         string $apiEndpoint
     ) {
         $this->client     = $client;
-        $this->serializer = $serializer;
+        $this->deserializer = $deserializer;
         $this->identityAdapter = $identityAdapter;
         $this->apiEndpoint = $apiEndpoint;
     }
@@ -66,7 +66,7 @@ class FindPersonByNameRepository implements FindPersonByNameInterface
                 $body
             );
 
-        $responseWrapper = $this->serializer->deserialize(
+        $responseWrapper = $this->deserializer->deserialize(
             $apiResponse->getBody()->getContents(),
             IdentitySearchResponseWrapper::class,
             'json'

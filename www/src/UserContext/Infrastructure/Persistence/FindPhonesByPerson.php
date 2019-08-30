@@ -6,7 +6,7 @@ namespace App\UserContext\Infrastructure\Persistence;
 use App\UserContext\Domain\Entities\PersonId;
 use App\UserContext\Domain\Repository\FindPhoneByPersonInterface;
 use App\UserContext\Infrastructure\Connections\ApiClient;
-use App\UserContext\Infrastructure\Serialization\SymfonyDeserializer as Serializer;
+use App\UserContext\Infrastructure\Serialization\DeserializerInterface;
 use App\UserContext\Infrastructure\Serialization\Entities\ContactInformationSearchResponseWrapper;
 use App\UserContext\Infrastructure\Serialization\Adapter\ContactInformationToPhoneNumberAdapter;
 
@@ -15,8 +15,8 @@ class FindPhonesByPerson implements FindPhoneByPersonInterface
     /** @var ApiClient */
     private $client;
 
-    /** @var Serializer */
-    private $serializer;
+    /** @var DeserializerInterface */
+    private $deserializer;
 
     /** @var ContactInformationToPhoneNumberAdapter */
     private $contactAdapter;
@@ -32,12 +32,12 @@ class FindPhonesByPerson implements FindPhoneByPersonInterface
 
     public function __construct(
         ApiClient $client,
-        Serializer $serializer,
+        DeserializerInterface $deserializer,
         ContactInformationToPhoneNumberAdapter $contactAdapter,
         string $apiEndpoint
     ) {
         $this->client     = $client;
-        $this->serializer = $serializer;
+        $this->deserializer = $deserializer;
         $this->contactAdapter = $contactAdapter;
         $this->apiEndpoint = $apiEndpoint;
     }
@@ -64,7 +64,7 @@ class FindPhonesByPerson implements FindPhoneByPersonInterface
             ->client
             ->post($this->apiEndpoint . '/v1/contactinformationidentity/searchby', $body);
 
-        $responseWrapper = $this->serializer->deserialize(
+        $responseWrapper = $this->deserializer->deserialize(
             $apiResponse->getBody()->getContents(),
             ContactInformationSearchResponseWrapper::class,
             'json'

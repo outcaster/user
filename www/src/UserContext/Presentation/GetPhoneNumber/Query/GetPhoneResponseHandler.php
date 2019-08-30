@@ -4,15 +4,15 @@ declare(strict_types = 1);
 namespace App\UserContext\Presentation\GetPhoneNumber\Query;
 
 use App\UserContext\Application\GetPhoneNumber\Query\PhoneQueryResponse;
-use App\UserContext\Infrastructure\Serialization\SymfonySerializer;
+use App\UserContext\Infrastructure\Serialization\SerializerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetPhoneResponseHandler
 {
-    /** @var SymfonySerializer */
+    /** @var SerializerInterface */
     private $serializer;
 
-    public function __construct(SymfonySerializer $serializer)
+    public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
     }
