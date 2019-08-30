@@ -41,15 +41,22 @@ class GetPhoneNumberByNameFinderTest extends TestCase
 
         // ---------------- Then ----------------
         self::assertTrue(sizeof($personPhonesArray) > 0);
-//        self::assertSame([
-//            PersonPhone::PERSON_ID => $identity->getId()->getValue(),
-//            PersonPhone::PERSON_NAME => $identity->getName()->getValue(),
-//        ], $personPhonesArray[0]->getPerson()->personInfo);
-//        self::assertSame([
-//            PhoneType::PERSONAL_NUMBER_TEXT => $personalNumber->getPhoneNumber()->getValue(),
-//            PhoneType::WORK_NUMBER_TEXT => $workNumber->getPhoneNumber()->getValue(),
-//            PhoneType::MOBILE_NUMBER_TEXT => $mobileNumber->getPhoneNumber()->getValue(),
-//        ], $personPhonesArray[0]->phoneNumbers);
+        self::assertSame([
+            PersonPhone::PERSON_ID => $identity->getId()->getValue(),
+            PersonPhone::PERSON_NAME => $identity->getName()->getValue(),
+        ], [
+            PersonPhone::PERSON_ID => $personPhonesArray[0]->getPerson()->getId()->getValue(),
+            PersonPhone::PERSON_NAME => $personPhonesArray[0]->getPerson()->getName()->getValue(),
+        ]);
+        self::assertSame([
+            PhoneType::PERSONAL_NUMBER_TEXT => $personalNumber->getPhoneNumber()->getValue(),
+            PhoneType::WORK_NUMBER_TEXT => $workNumber->getPhoneNumber()->getValue(),
+            PhoneType::MOBILE_NUMBER_TEXT => $mobileNumber->getPhoneNumber()->getValue(),
+        ], [
+            PhoneType::PERSONAL_NUMBER_TEXT => $personPhonesArray[0]->getUserPhones()[0]->getPhoneNumber()->getValue(),
+            PhoneType::WORK_NUMBER_TEXT => $personPhonesArray[0]->getUserPhones()[1]->getPhoneNumber()->getValue(),
+            PhoneType::MOBILE_NUMBER_TEXT => $personPhonesArray[0]->getUserPhones()[2]->getPhoneNumber()->getValue(),
+        ]);
     }
 
     public function tearDown(): void
