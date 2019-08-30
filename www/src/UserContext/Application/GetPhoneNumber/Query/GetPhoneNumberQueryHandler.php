@@ -17,7 +17,7 @@ class GetPhoneNumberQueryHandler
         $this->getPhoneNumberByNameManager = $getPhoneNumberByNameManager;
     }
 
-    public function __invoke(GetPhoneQuery $query) :?PersonPhonesCollection
+    public function __invoke(GetPhoneQuery $query) :PersonPhonesCollection
     {
         return $this->getPhoneNumberByNameManager->find(new PersonName($query->getName()));
     }
