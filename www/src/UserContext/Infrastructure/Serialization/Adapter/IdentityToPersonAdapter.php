@@ -23,7 +23,7 @@ class IdentityToPersonAdapter
             $fullName = $identity->getIdentity()->getFirstName() !== null ?
                 $identity->getIdentity()->getFirstName() : '';
             if ($identity->getIdentity()->getName() !== null) {
-                $fullName .= $fullName !== null ? ' ' . $identity->getIdentity()->getName() :
+                $fullName .= $fullName !== '' ? ' ' . $identity->getIdentity()->getName() :
                     $identity->getIdentity()->getName();
             }
 
