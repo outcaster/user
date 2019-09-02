@@ -5,6 +5,7 @@ namespace App\UserContext\Infrastructure\Persistence;
 
 use App\UserContext\Domain\Entities\PersonId;
 use App\UserContext\Domain\Repository\FindPhoneByPersonInterface;
+use App\UserContext\Domain\Entities\Phone;
 use App\UserContext\Infrastructure\Connections\ApiClient;
 use App\UserContext\Infrastructure\Serialization\DeserializerInterface;
 use App\UserContext\Infrastructure\Serialization\Entities\ContactInformationSearchResponseWrapper;
@@ -44,7 +45,7 @@ class FindPhonesByPerson implements FindPhoneByPersonInterface
 
     /**
      * @param PersonId $personId
-     * @return array
+     * @return Phone[]
      */
     public function search(PersonId $personId) :array
     {
@@ -64,6 +65,7 @@ class FindPhonesByPerson implements FindPhoneByPersonInterface
             ->client
             ->post($this->apiEndpoint . '/v1/contactinformationidentity/searchby', $body);
 
+        /** @var ContactInformationSearchResponseWrapper $responseWrapper */
         $responseWrapper = $this->deserializer->deserialize(
             $apiResponse->getBody()->getContents(),
             ContactInformationSearchResponseWrapper::class,
